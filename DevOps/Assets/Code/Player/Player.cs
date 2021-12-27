@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             this.transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
-            Debug.Log("interacted");
+            //Debug.Log("interacted");
             if (!Inventory.GetInventoryInstance()
                           .IsHaving(_hammerPrefab
                                         .GetComponent<Item>())) //Debug - dodanie młotka, żeby móc ścinać drzewa

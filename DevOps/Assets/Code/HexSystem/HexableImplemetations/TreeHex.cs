@@ -42,7 +42,7 @@ public class TreeHex : MonoBehaviour, IHexable
             _useCount++;
             Depleted();
         }
-        Debug.Log("not have");
+        //Debug.Log("not have");
     }
 
     public void    Depleted()
