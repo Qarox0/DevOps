@@ -28,7 +28,7 @@ public interface IHexable
 
 public enum HexType             //Typ Pola
 {
-    TREE, GRASS, NULL
+    TREE, GRASS, FISHING, BUSH, STONE, NULL
 }
 
 namespace HexUtils

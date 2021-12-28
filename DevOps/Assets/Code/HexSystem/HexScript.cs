@@ -35,7 +35,7 @@ public class HexScript : MonoBehaviour
         if (_isDrawingGizmos)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(this.transform.position, _radiusOfNearHexCheck);
+            Gizmos.DrawSphere(transform.position, _radiusOfNearHexCheck);
         }
     }
 
@@ -50,6 +50,19 @@ public class HexScript : MonoBehaviour
         }
 
         return false;
+    }
+
+    public GameObject GetFishingSpot()
+    {
+        foreach (var hex in _surroundingHexes)
+        {
+            if (hex.GetComponentInChildren<FishableHex>() != null)
+            {
+                return hex;
+            }
+            
+        }
+        return null;
     }
 
     public void HandlePlayerEnter(Player player) //Metoda odpowiadająca za wejscie gracza na pole

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93217d3440cb4e7b80d47e664c041949, type: 3}
-  m_Name: Recpie
+  m_Name: HammerRecipe
   m_EditorClassIdentifier: 
-  _amount1: 1
-  _itemPrefab1: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
+  _amount1: 3
+  _itemPrefab1: {fileID: 8384901244394430122, guid: 457d31300c6cba84da285c53c081f354, type: 3}
   _amount2: 1
   _itemPrefab2: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
   _amount3: 0

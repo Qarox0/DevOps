@@ -42,17 +42,14 @@ public class Crafting : MonoBehaviour
             if(slot.GetComponentInChildren<Item>() != null)
             {
                 reducedRecipeList = ReduceList(reducedRecipeList, slot.GetComponentInChildren<Item>(), i);
-                Debug.Log($"{i}: item");
 
             }
             else
             {
                 reducedRecipeList = ReduceList(reducedRecipeList, null, i);
-                Debug.Log($"{i}: null");
             }
             i++;
         }
-        Debug.Log(reducedRecipeList.Count.ToString());
         if (reducedRecipeList.Count == 1)
         {
             return reducedRecipeList[0];
@@ -68,7 +65,6 @@ public class Crafting : MonoBehaviour
         List<RecipeObject> reducedRecpieList = new List<RecipeObject>();
         foreach (var recipe in listToReduce)
         {
-            Debug.Log($"{recipe._itemPrefab2} - item should be null");
             switch (slotNumber)
             {
                 case 1:
@@ -138,7 +134,6 @@ public class Crafting : MonoBehaviour
                     break;
             }
         }
-        Debug.Log(reducedRecpieList);
 
         return reducedRecpieList;
 

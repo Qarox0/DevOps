@@ -46,5 +46,5 @@ MonoBehaviour:
   _slotNumber: 9
   _parentInventoryTransform: {fileID: 0}
   _slotPrefab: {fileID: 5968962869168860458, guid: 77e0aeb73510b6446b5f11a6f78a5e86, type: 3}
-  _slotsList: []
   _maxWeight: 110
+  _slotsList: []

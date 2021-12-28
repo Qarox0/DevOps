@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 //Klasa itemu przypisanego do slota
-public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [Tooltip("How much item weight")]
     [SerializeField] private float    _weight;                //Waga itemu
@@ -20,7 +20,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Space]
     [Header("UI")]
     [Tooltip("Display for quantity")]
-    [SerializeField] private Text     _text;                  //Pole Textowe do obsługi ilości
+    [SerializeField] private Text _text;                                   //Pole Textowe do obsługi ilości
+    [SerializeField]                             private bool   _isEdible; //Czy jest jadalny
+    [RequireInterface(typeof(IEdible))] [SerializeField] private object _edibleImplementation;  //Referencja do implementacji edible
 
     private int         _quantity = 0;  //ile jest aktualnie
     private CanvasGroup _canvasGroup;   //komponent canvas group do draga
@@ -129,10 +131,21 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     }
 
     #endregion
-    
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.clickCount == 2 && _isEdible)
+        {
+            var edibleConversion = _edibleImplementation as IEdible; //Konwertuj na Hexable
+            if (edibleConversion != null)                            //i sprawdź czy reaguje na starcie
+            {
+                edibleConversion.Eat(this);
+            }
+        }
+    }
 }
 
 public enum ItemType    //typ itemu
 {
-    RESOURCE, TOOL
+    RESOURCE, TOOL, FOOD
 }

@@ -28,7 +28,7 @@ public class SlotScript : MonoBehaviour, IDropHandler
         {
             droppedObject.GetComponent<Item>().IsOnItem = true;
             droppedObject.GetComponent<Item>().IsDroppedOnSlot = true;
-            if (Keyboard.current.altKey.isPressed)
+            if (Keyboard.current.altKey.isPressed && droppedObject.GetComponent<Item>().Quantity < droppedObject.GetComponent<Item>().GetMaxStackQuantity())
             {
                 objectOnSlot.Quantity++;
                 droppedObject.GetComponent<Item>().Quantity--;
@@ -40,8 +40,12 @@ public class SlotScript : MonoBehaviour, IDropHandler
             }
             else
             {
-                objectOnSlot.Quantity += droppedObject.GetComponent<Item>().Quantity;
-                Destroy(droppedObject);
+                if (droppedObject.GetComponent<Item>().Quantity <
+                    droppedObject.GetComponent<Item>().GetMaxStackQuantity())
+                {
+                    objectOnSlot.Quantity += droppedObject.GetComponent<Item>().Quantity;
+                    Destroy(droppedObject);
+                }
             }
         }
 
