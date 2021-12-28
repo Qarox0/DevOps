@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OpenBuilding",
+                    "type": "Button",
+                    "id": "935f3a30-6470-4058-947e-c43381e7a0cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -99,6 +107,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenCrafting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f184841d-90a4-4c98-97e8-0955fcdb128e",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenBuilding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

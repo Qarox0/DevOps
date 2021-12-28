@@ -10,6 +10,7 @@ public class ImpassableNullHex : MonoBehaviour, IHexable
         FieldType          = HexType.NULL;
         IsLaunchingOnEnter = false;
         IsPassable         = false;
+        MovementMultiplier = 0;
     }
 
     // Update is called once per frame
@@ -21,6 +22,8 @@ public class ImpassableNullHex : MonoBehaviour, IHexable
     public HexType FieldType          { get; set; }
     public bool    IsLaunchingOnEnter { get; set; }
     public bool    IsPassable         { get; set; }
+    public int     MovementMultiplier { get; set; }
+
     public void    Interaction(Player player)
     {
         Debug.LogError("this shouldn't be possible");

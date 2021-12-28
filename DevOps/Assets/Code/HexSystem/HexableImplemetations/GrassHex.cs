@@ -16,6 +16,7 @@ public class GrassHex : MonoBehaviour, IHexable
         FieldType          = HexType.GRASS;
         IsLaunchingOnEnter = false;
         IsPassable         = true;
+        MovementMultiplier = 3;
     }
 
     // Update is called once per frame
@@ -27,6 +28,8 @@ public class GrassHex : MonoBehaviour, IHexable
     public HexType FieldType          { get; set; }
     public bool    IsLaunchingOnEnter { get; set; }
     public bool    IsPassable         { get; set; }
+    public int     MovementMultiplier { get; set; }
+
     public void    Interaction(Player player)
     {
         Inventory.GetInventoryInstance().AddItemToInventory(_grassInvPrefab);
