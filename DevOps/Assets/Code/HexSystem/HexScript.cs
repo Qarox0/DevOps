@@ -10,6 +10,7 @@ public class HexScript : MonoBehaviour
     private Object _objectOnField;    //Obiekt interaktywny na hexie
     [Tooltip("radius of circle drawn to find nearby hexes")]
     [SerializeField] private float _radiusOfNearHexCheck = 5f;
+    [SerializeField] public int MovementMultiplier = 1;
     [Space]
     [Header("debug")]
     [SerializeField] private bool             _isDrawingGizmos = true;
@@ -30,6 +31,16 @@ public class HexScript : MonoBehaviour
 
     }
 
+    public bool IsHexEmpty()
+    {
+        if (_objectOnField == null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
     public void OnDrawGizmosSelected()      //rysuje gizmos jeśli jest zaznaczone
     {
         if (_isDrawingGizmos)

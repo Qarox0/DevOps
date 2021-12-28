@@ -16,6 +16,7 @@ public class FishableHex : MonoBehaviour, IHexable
         FieldType          = HexType.FISHING;
         IsLaunchingOnEnter = false;
         IsPassable         = false;
+        MovementMultiplier = 0;
     }
 
     // Update is called once per frame
@@ -27,6 +28,8 @@ public class FishableHex : MonoBehaviour, IHexable
     public HexType FieldType          { get; set; }
     public bool    IsLaunchingOnEnter { get; set; }
     public bool    IsPassable         { get; set; }
+    public int     MovementMultiplier { get; set; }
+
     public void    Interaction(Player player)
     {
         var fishCaught = Random.Range(0, _fishesToCatch.Count - 1);

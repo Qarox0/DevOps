@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject _hammerPrefab;          //Prefab młotka, póki nie ma craftingu i siekiery
-    [SerializeField] private GameObject _inventoryHandle;       //uchwyt do ui inv
-    [SerializeField] private GameObject _craftingHandle;       //uchwyt do ui inv
+    [SerializeField] private GameObject _hammerPrefab;    //Prefab młotka, póki nie ma craftingu i siekiery
+    [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
+    [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
+    [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
     {
         if (value.started)
@@ -47,18 +49,20 @@ public class Player : MonoBehaviour
             RaycastHit2D hit           = Physics2D.Raycast(inWorldSpace, Vector2.zero);
             if (hit.collider != null && hit.collider.tag == "Hex")
             {
-                var hex         = this.transform.parent.GetComponent<HexScript>();
+                var hex         = transform.parent.GetComponent<HexScript>();
                 var objectOnHex = hit.collider.GetComponentInChildren<IHexable>();
-                if (this.transform.parent.GetComponent<HexScript>().IsAdjecent(hit.collider.gameObject))
+                if (transform.parent.GetComponent<HexScript>().IsAdjecent(hit.collider.gameObject))
                 {
                     if (objectOnHex != null && objectOnHex.IsPassable)
                     {
-                        this.transform.SetParent(hit.collider.transform, false);
+                        transform.SetParent(hit.collider.transform, false);
+                        TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
+                        
                     }
                     else if (objectOnHex == null)
                     {
-                        this.transform.SetParent(hit.collider.transform, false);
-
+                        transform.SetParent(hit.collider.transform, false);
+                        TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
                     }
                 }
             }
@@ -76,7 +80,15 @@ public class Player : MonoBehaviour
     {
         if (value.started)
         {
-            _craftingHandle.SetActive(!_inventoryHandle.activeSelf);
+            _craftingHandle.SetActive(!_craftingHandle.activeSelf);
+        }
+    }
+    
+    public void ToggleBuilding(InputAction.CallbackContext value) //przełączanie ekwipunku
+    {
+        if (value.started)
+        {
+            _buildingHandle.SetActive(!_buildingHandle.activeSelf);
         }
     }
 
