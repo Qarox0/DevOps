@@ -9,12 +9,28 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public event Action onPlayerMove;
+
+    public PlayerStats stats;
     
-    [SerializeField] private GameObject _hammerPrefab;    //Prefab młotka, póki nie ma craftingu i siekiery
     [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
     [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
     [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
     [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
+
+    private void Start()
+    {
+        InitializeStats();
+    }
+    
+
+    private void InitializeStats()
+    {
+        stats.ActualHealth = stats.Health = 100;
+        stats.Luck         = 1;
+        stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
+        stats.FatalRisk    = 1;
+    }
+
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
     {
         if (value.started)
