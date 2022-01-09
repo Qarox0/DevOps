@@ -65,7 +65,8 @@ public class BuildingManager : MonoBehaviour
                              .SubstractFromInventory(itemRequired.ItemNeeded.GetComponent<Item>(), itemRequired.Amount);
                 }
 
-                Instantiate(fieldSelected.BuildRecipe.Output, standingHex.transform);
+                var builded =Instantiate(fieldSelected.BuildRecipe.Output, standingHex.transform);
+                
             }
         }
     }

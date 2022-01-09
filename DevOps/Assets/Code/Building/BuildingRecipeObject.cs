@@ -12,10 +12,5 @@ public class BuildingRecipeObject : ScriptableObject
     public GameObject         Output;
 }
 
-[Serializable]
-public struct RequiredItem
-{
-    public GameObject ItemNeeded;
-    public int        Amount;
-}
+
 
