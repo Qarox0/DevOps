@@ -63,6 +63,11 @@ public class HexScript : MonoBehaviour
         return false;
     }
 
+    public void SetObjectOnField(GameObject objectPrefab)
+    {
+        _objectOnField = objectPrefab;
+    }
+
     public GameObject GetFishingSpot()
     {
         foreach (var hex in _surroundingHexes)
@@ -99,6 +104,12 @@ public class HexScript : MonoBehaviour
             if (hexConversion != null)                      //Sprawdź czy konwersja się udała
             {
                 hexConversion.Interaction(player); //Reaguj
+            }
+
+            var hexGameObject = _objectOnField as GameObject;
+            if (hexGameObject != null)
+            {
+                hexGameObject.GetComponent<IHexable>().Interaction(player);
             }
         }
     }

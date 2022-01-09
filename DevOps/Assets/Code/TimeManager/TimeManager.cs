@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,13 +6,14 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    public event Action<int> onTimePasses;
+    
     [SerializeField] private int         _hoursPerDay             = 6;  //Ile godzin ma doba
     [SerializeField] private int         _minutesPerDayMultipiler = 60; //mnożnik minut dla doby
     [SerializeField] private TMP_Text _text;
     private                  int         _minutesPerDay; //ile minut trwa doba
     private                  int         _time = 0;      //czas w minutach od północy
     private                  int         _day  = 1;      //który dzień od początku rozgrywki (numeracja od 1)
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +36,8 @@ public class TimeManager : MonoBehaviour
             _time -= _minutesPerDay;
             _day++;
         }
-
         _text.text = GetTimeAsString();
+        onTimePasses?.Invoke(minutesToPass);
     }
 
     public string GetTimeAsString() //Wyświetlanie zegara

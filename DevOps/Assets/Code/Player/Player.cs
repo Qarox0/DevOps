@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public event Action onPlayerMove;
+    
     [SerializeField] private GameObject _hammerPrefab;    //Prefab młotka, póki nie ma craftingu i siekiery
     [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
     [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
@@ -18,13 +20,6 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
-            //Debug.Log("interacted");
-            /*if (!Inventory.GetInventoryInstance()
-                          .IsHaving(_hammerPrefab
-                                        .GetComponent<Item>())) //Debug - dodanie młotka, żeby móc ścinać drzewa
-            {
-                Inventory.GetInventoryInstance().AddItemToInventory(_hammerPrefab);
-            }*/
         }
     }
 
@@ -57,12 +52,13 @@ public class Player : MonoBehaviour
                     {
                         transform.SetParent(hit.collider.transform, false);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
-                        
+                        onPlayerMove?.Invoke();
                     }
                     else if (objectOnHex == null)
                     {
                         transform.SetParent(hit.collider.transform, false);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
+                        onPlayerMove?.Invoke();
                     }
                 }
             }

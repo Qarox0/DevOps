@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 //Klasa itemu przypisanego do slota
 public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
@@ -22,8 +24,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Tooltip("Display for quantity")]
     [SerializeField] private Text _text;                                   //Pole Textowe do obsługi ilości
     [SerializeField]                             private bool   _isEdible; //Czy jest jadalny
-    [RequireInterface(typeof(IEdible))] [SerializeField] private object _edibleImplementation;  //Referencja do implementacji edible
-
+    [Tooltip("What is happening on eat")] [SerializeField] [RequireInterface(typeof(IEdible))]
+    private Object _edibleImplementation; //Referencja do implementacji edible
+    [SerializeField] public int _fuelValue;
     private int         _quantity = 0;  //ile jest aktualnie
     private CanvasGroup _canvasGroup;   //komponent canvas group do draga
     private bool        _isDragging;    //Czy jest draggowany
@@ -134,12 +137,18 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.clickCount == 2 && _isEdible)
+        if (eventData.button == PointerEventData.InputButton.Right && _isEdible)
         {
             var edibleConversion = _edibleImplementation as IEdible; //Konwertuj na Hexable
             if (edibleConversion != null)                            //i sprawdź czy reaguje na starcie
             {
                 edibleConversion.Eat(this);
+            }
+
+            var edibleGameObject = _edibleImplementation as GameObject;
+            if (edibleGameObject != null)
+            {
+                edibleGameObject.GetComponent<IEdible>().Eat(this);
             }
         }
     }
@@ -148,4 +157,28 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 public enum ItemType    //typ itemu
 {
     RESOURCE, TOOL, FOOD
+}
+
+[Serializable]
+public struct RequiredItem
+{
+    public GameObject ItemNeeded;
+    public int        Amount;
+
+    public void SetAmount(int value)
+    {
+        Amount = value;
+    }
+
+    public void SetItem(GameObject gameObject)
+    {
+        ItemNeeded = gameObject;
+    }
+
+    public RequiredItem(int amount = 0, GameObject item = null)
+    {
+        Amount     = amount;
+        ItemNeeded = item;
+        return;
+    }
 }
