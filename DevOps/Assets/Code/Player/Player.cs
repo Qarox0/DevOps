@@ -9,14 +9,9 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public event Action onPlayerMove;
-<<<<<<< HEAD
 
     public PlayerStats stats;
     
-=======
-    
-    [SerializeField] private GameObject _hammerPrefab;    //Prefab młotka, póki nie ma craftingu i siekiery
->>>>>>> cf74f07b (Campfire System i update Itemów)
     [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
     [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
     [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
@@ -30,6 +25,7 @@ public class Player : MonoBehaviour
 
     private void InitializeStats()
     {
+        stats              = new PlayerStats();
         stats.ActualHealth = stats.Health = 100;
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
