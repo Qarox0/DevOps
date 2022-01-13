@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
     private void InitializeStats()
     {
+        stats              = new PlayerStats();
         stats.ActualHealth = stats.Health = 100;
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
