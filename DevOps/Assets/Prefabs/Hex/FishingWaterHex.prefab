@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fishesToCatch:
-  - {fileID: 8384901244394430122, guid: f44e8e757066ec3488ac731fc1792eea, type: 3}
+  - {fileID: 8384901244394430122, guid: 8841d8018b247c44c87e24eec228b35e, type: 3}
   _nullHexPrefab: {fileID: 2384004134077744978, guid: 324ef2872d1b1e942b73262253d12ec2, type: 3}
   _maxUseCount: 3
 --- !u!1 &4046571000144506562
@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectOnField: {fileID: 9054827592747349507}
   _radiusOfNearHexCheck: 0.82
+  MovementMultiplier: 1
   _isDrawingGizmos: 0
 --- !u!58 &1909408270777826837
 CircleCollider2D:

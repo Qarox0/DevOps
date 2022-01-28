@@ -66,7 +66,7 @@ public class BuildingManager : MonoBehaviour
                 }
 
                 var builded =Instantiate(fieldSelected.BuildRecipe.Output, standingHex.transform);
-                
+                standingHex.SetObjectOnField(builded);
             }
         }
     }

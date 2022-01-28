@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1925464234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -541,6 +541,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883152, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883152, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883152, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883152, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883155, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d24f1b6dab6d2234397c019897379b68, type: 3}
+    - target: {fileID: 4757851699841883155, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883155, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757851699841883155, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6552845141464335203, guid: 0ad73b2007938ab4e8209f93c25e7b65, type: 3}
       propertyPath: _buildingHandle
       value: 
@@ -1016,10 +1048,14 @@ PrefabInstance:
       objectReference: {fileID: 1925464231}
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
       propertyPath: _recipes.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
       propertyPath: _recipes.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d95bcad4b83d26d4eb1d4e89a9b82929, type: 2}
+    - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
+      propertyPath: _recipes.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: e482dc610fa8bd04d9c33d5c329052af, type: 2}
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
