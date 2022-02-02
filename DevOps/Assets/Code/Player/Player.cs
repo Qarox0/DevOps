@@ -105,4 +105,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void LaunchDebugEvent(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            EventManager.GetInstance().LaunchEvent("DebugEvent");
+        }
+    }
+
 }
