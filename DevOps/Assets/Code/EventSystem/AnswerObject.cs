@@ -1,18 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AnswerObject : MonoBehaviour
+[CreateAssetMenu(menuName = "Scriptable/New Answer", fileName = "EventAnswer")]
+public class AnswerObject : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string ResultName        = "";
+    public string AnswerDescription = "";
 }
