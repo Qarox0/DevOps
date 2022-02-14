@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 //Klasa itemu przypisanego do slota
 public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
@@ -18,24 +19,38 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Tooltip("Item name")]
     [SerializeField] private string _name;   //Nazwa
     [Tooltip("Which item type is this item")]
-    [SerializeField] private ItemType _type; //typ itemu
+    [SerializeField] private ItemType _type;   //typ itemu
+    public                   int   _fuelValue; //wyjątkowe złamanie zasad dobrego kodzenia
+    [SerializeField] private int _durability = 1;
+    
     [Space]
     [Header("UI")]
     [Tooltip("Display for quantity")]
     [SerializeField] private Text _text;                                   //Pole Textowe do obsługi ilości
+    
+    [Space]
+    [Header("Eating")]
     [SerializeField]                             private bool   _isEdible; //Czy jest jadalny
     [Tooltip("What is happening on eat")] [SerializeField] [RequireInterface(typeof(IEdible))]
     private Object _edibleImplementation; //Referencja do implementacji edible
-    [SerializeField] public int _fuelValue;
-    private int         _quantity = 0;  //ile jest aktualnie
-    private CanvasGroup _canvasGroup;   //komponent canvas group do draga
-    private bool        _isDragging;    //Czy jest draggowany
-    private Transform   _oldParent;     //Parent do dragga
-    private Transform   _oldParentCopy; //Parent do dragga
-    private Canvas      _canvas;        //Do Dragga
-    private bool        _isDroppedOnSlot;//Do Dragga
-    private bool        _isOnItem;      //Do Dragga
     
+    [Space]
+    [Header("Trap")]
+    [SerializeField] private List<CatchEnum> _catchDictionary;  //Lista eventów do łapania
+    [SerializeField] private float           _catchMultiplier;  //Mnożnika szansy na złapanie
+    
+    
+
+    private       int         _quantity = 0;    //ile jest aktualnie
+    private       CanvasGroup _canvasGroup;     //komponent canvas group do draga
+    private       bool        _isDragging;      //Czy jest draggowany
+    private       Transform   _oldParent;       //Parent do dragga
+    private       Transform   _oldParentCopy;   //Parent do dragga
+    private       Canvas      _canvas;          //Do Dragga
+    private       bool        _isDroppedOnSlot; //Do Dragga
+    private       bool        _isOnItem;        //Do Dragga
+    private const int         MINCHANCE = 0;
+    private const int         MAXCHANCE = 100;
     public int Quantity
     {
         get { return _quantity;}
@@ -44,6 +59,16 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             _quantity   = value;
             _text.text = value.ToString();
         }
+    }
+
+    public int GetDurability()
+    {
+        return _durability;
+    }
+
+    public void DamageItem(int amount)
+    {
+        _durability -= amount;
     }
     // Start is called before the first frame update
     void Start()
@@ -78,6 +103,23 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         get { return _isDroppedOnSlot; }
         set { _isDroppedOnSlot = value; }
+    }
+
+    public CatchEnum GetCatch()
+    {
+        CatchEnum catchEnum = new CatchEnum();
+        foreach (var catching in _catchDictionary)
+        {
+            Random random = new Random();
+            var roll = random.Next(MINCHANCE, MAXCHANCE);
+            Debug.Log($"They see me rolling:{roll} - {catching.EventChance}");
+            if (roll <= catching.EventChance)
+            {
+                return catching;
+            }
+        }
+
+        return catchEnum;
     }
 
     public bool IsOnItem
@@ -127,6 +169,10 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 Quantity                           = 1;
             }
 
+        }
+        else if (Keyboard.current.leftShiftKey.isPressed)
+        {
+            Divider.GetInstance().init(gameObject);
         }
         transform.SetParent(_oldParent,false);
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;

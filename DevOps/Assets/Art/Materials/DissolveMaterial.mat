@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DissolveMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 87484468dffa5b34fb822b4cee592f86, type: 3}
+  m_Shader: {fileID: 4800000, guid: dccb0bd3dbf57fa4b9a928f63a21ea5a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -74,9 +78,11 @@ Material:
     - _DetailNormalMapScale: 1
     - _DissolveStep: 0.259
     - _DstBlend: 0
+    - _Edges: 0.122
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Level: 0.105
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -91,9 +97,12 @@ Material:
     - _StencilReadMask: 0
     - _StencilWriteMask: 0
     - _UVSec: 0
+    - _UseUIAlphaClip: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0.08018869, b: 0.08018869, a: 1}
     - _DissolveColor: {r: 0.6901961, g: 0.6848665, b: 0.2431372, a: 0}
+    - _EdgeColour1: {r: 1, g: 1, b: 1, a: 1}
+    - _EdgeColour2: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
