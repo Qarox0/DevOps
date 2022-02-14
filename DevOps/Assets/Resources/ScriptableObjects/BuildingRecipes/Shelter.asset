@@ -18,4 +18,4 @@ MonoBehaviour:
   - ItemNeeded: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
     Amount: 10
   BuildMenuImage: {fileID: 21300000, guid: 48a83a9dd948d0447b9798f1c20971c5, type: 3}
-  Output: {fileID: 6955684083686476772, guid: fc8fe6186a0048549b11357dc5912e59, type: 3}
+  Output: {fileID: 4083225789778600828, guid: 8aece4350b2a5d64a976e32d52a18c67, type: 3}
