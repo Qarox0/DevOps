@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject       _slotPrefab;              //Prefab Slotów
     [Tooltip("Max carry weight")]
     [SerializeField] private float _maxWeight; //Max obciążenie ekwipunku
+    
     [Space]
     [Header("DEBUG")]
     [Tooltip("DEBUG: list of slots")]
@@ -68,7 +71,7 @@ public class Inventory : MonoBehaviour
     {
         bool isDone      = false;
         var  actualCount = substractCount;
-        if (this.GetSumOfItem(item) >= substractCount)
+        if (GetSumOfItem(item) >= substractCount)
         {
             foreach (var slot in _slotsList)
             {
@@ -92,6 +95,21 @@ public class Inventory : MonoBehaviour
             }
         }
         return isDone;
+    }
+
+    public bool CheckForBuildingRecipe(BuildingRecipeObject recipe)
+    {
+        int i = 0;
+        foreach (var item in recipe.ItemsNeeded)
+        {
+            if (GetSumOfItem(item.ItemNeeded.GetComponent<Item>()) >= item.Amount)
+            {
+                i++;
+            }
+            
+        }
+
+        return i == recipe.ItemsNeeded.Count;
     }
     #endregion
 
@@ -182,7 +200,7 @@ public class Inventory : MonoBehaviour
         item.Quantity -= quantity;
         if (item.Quantity == 0)
         {
-            Destroy(slotWithItem.transform.GetChild(0));
+            Destroy(slotWithItem.transform.GetChild(0).gameObject);
         }
         CalculateWeight();
     }

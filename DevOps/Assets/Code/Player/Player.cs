@@ -8,19 +8,46 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private GameObject _hammerPrefab;          //Prefab młotka, póki nie ma craftingu i siekiery
-    [SerializeField] private GameObject _inventoryHandle;       //uchwyt do ui inv
+    public event Action onPlayerMove;
+
+    public PlayerStats stats;
+    
+    [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
+    [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
+    [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
+
+    private void Start()
+    {
+        InitializeStats();
+    }
+    
+
+    private void InitializeStats()
+    {
+        stats              = new PlayerStats();
+        stats.ActualHealth = stats.Health = 100;
+        stats.Luck         = 1;
+        stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
+        stats.FatalRisk    = 1;
+    }
+
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
     {
         if (value.started)
         {
-            this.transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
-            Debug.Log("interacted");
-            if (!Inventory.GetInventoryInstance()
-                          .IsHaving(_hammerPrefab
-                                        .GetComponent<Item>())) //Debug - dodanie młotka, żeby móc ścinać drzewa
+            transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
+        }
+    }
+
+    public void Fishing(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            var fishingSpot = transform.parent.GetComponent<HexScript>().GetFishingSpot();
+            if (fishingSpot != null)
             {
-                Inventory.GetInventoryInstance().AddItemToInventory(_hammerPrefab);
+                fishingSpot.GetComponentInChildren<FishableHex>().Interaction(this);
             }
         }
     }
@@ -34,18 +61,21 @@ public class Player : MonoBehaviour
             RaycastHit2D hit           = Physics2D.Raycast(inWorldSpace, Vector2.zero);
             if (hit.collider != null && hit.collider.tag == "Hex")
             {
-                var hex         = this.transform.parent.GetComponent<HexScript>();
+                var hex         = transform.parent.GetComponent<HexScript>();
                 var objectOnHex = hit.collider.GetComponentInChildren<IHexable>();
-                if (this.transform.parent.GetComponent<HexScript>().IsAdjecent(hit.collider.gameObject))
+                if (transform.parent.GetComponent<HexScript>().IsAdjecent(hit.collider.gameObject))
                 {
                     if (objectOnHex != null && objectOnHex.IsPassable)
                     {
-                        this.transform.SetParent(hit.collider.transform, false);
+                        transform.SetParent(hit.collider.transform, false);
+                        TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
+                        onPlayerMove?.Invoke();
                     }
                     else if (objectOnHex == null)
                     {
-                        this.transform.SetParent(hit.collider.transform, false);
-
+                        transform.SetParent(hit.collider.transform, false);
+                        TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
+                        onPlayerMove?.Invoke();
                     }
                 }
             }
@@ -57,6 +87,29 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             _inventoryHandle.SetActive(!_inventoryHandle.activeSelf);
+        }
+    }
+    public void ToggleCrafting(InputAction.CallbackContext value) //przełączanie ekwipunku
+    {
+        if (value.started)
+        {
+            _craftingHandle.SetActive(!_craftingHandle.activeSelf);
+        }
+    }
+    
+    public void ToggleBuilding(InputAction.CallbackContext value) //przełączanie ekwipunku
+    {
+        if (value.started)
+        {
+            _buildingHandle.SetActive(!_buildingHandle.activeSelf);
+        }
+    }
+
+    public void LaunchDebugEvent(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            EventManager.GetInstance().LaunchEvent("DebugEvent");
         }
     }
 

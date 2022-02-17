@@ -20,7 +20,8 @@ public class TreeHex : MonoBehaviour, IHexable
     public HexType FieldType          { get; set; }
     public bool    IsLaunchingOnEnter { get; set; }
     public bool    IsPassable         { get; set; }
-    
+    public int     MovementMultiplier { get; set; }
+
     //Zmienne Prywatne
     private int _useCount = 0;
 
@@ -30,6 +31,7 @@ public class TreeHex : MonoBehaviour, IHexable
         FieldType          = HexType.TREE;
         IsLaunchingOnEnter = false;
         IsPassable         = true;
+        MovementMultiplier = 2;
     }
 
     #region InheritedFromIHexable
@@ -42,7 +44,7 @@ public class TreeHex : MonoBehaviour, IHexable
             _useCount++;
             Depleted();
         }
-        Debug.Log("not have");
+        //Debug.Log("not have");
     }
 
     public void    Depleted()

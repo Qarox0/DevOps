@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93217d3440cb4e7b80d47e664c041949, type: 3}
+  m_Name: PlankRecipe
+  m_EditorClassIdentifier: 
+  _amount1: 1
+  _itemPrefab1: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
+  _amount2: 0
+  _itemPrefab2: {fileID: 0}
+  _amount3: 0
+  _itemPrefab3: {fileID: 0}
+  _amount4: 0
+  _itemPrefab4: {fileID: 0}
+  _amount5: 0
+  _itemPrefab5: {fileID: 0}
+  _outputAmount: 3
+  _outputPrefab: {fileID: 8384901244394430122, guid: ba375ee7ca7d93446b4a387ccda5727f, type: 3}

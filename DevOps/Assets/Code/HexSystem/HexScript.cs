@@ -10,6 +10,7 @@ public class HexScript : MonoBehaviour
     private Object _objectOnField;    //Obiekt interaktywny na hexie
     [Tooltip("radius of circle drawn to find nearby hexes")]
     [SerializeField] private float _radiusOfNearHexCheck = 5f;
+    [SerializeField] public int MovementMultiplier = 1;
     [Space]
     [Header("debug")]
     [SerializeField] private bool             _isDrawingGizmos = true;
@@ -30,12 +31,22 @@ public class HexScript : MonoBehaviour
 
     }
 
+    public bool IsHexEmpty()
+    {
+        if (_objectOnField == null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
     public void OnDrawGizmosSelected()      //rysuje gizmos jeśli jest zaznaczone
     {
         if (_isDrawingGizmos)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(this.transform.position, _radiusOfNearHexCheck);
+            Gizmos.DrawSphere(transform.position, _radiusOfNearHexCheck);
         }
     }
 
@@ -50,6 +61,24 @@ public class HexScript : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SetObjectOnField(GameObject objectPrefab)
+    {
+        _objectOnField = objectPrefab;
+    }
+
+    public GameObject GetFishingSpot()
+    {
+        foreach (var hex in _surroundingHexes)
+        {
+            if (hex.GetComponentInChildren<FishableHex>() != null)
+            {
+                return hex;
+            }
+            
+        }
+        return null;
     }
 
     public void HandlePlayerEnter(Player player) //Metoda odpowiadająca za wejscie gracza na pole
@@ -75,6 +104,12 @@ public class HexScript : MonoBehaviour
             if (hexConversion != null)                      //Sprawdź czy konwersja się udała
             {
                 hexConversion.Interaction(player); //Reaguj
+            }
+
+            var hexGameObject = _objectOnField as GameObject;
+            if (hexGameObject != null)
+            {
+                hexGameObject.GetComponent<IHexable>().Interaction(player);
             }
         }
     }

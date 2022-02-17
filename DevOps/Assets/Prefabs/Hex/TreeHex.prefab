@@ -98,7 +98,7 @@ MonoBehaviour:
   _maxUseCount: 5
   _timeTaken: 5
   _woodInvPrefab: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
-  _requiredItemToInteract: {fileID: 6300399431235076477, guid: 28af54cf76440284383cafe508e0dab1, type: 3}
+  _requiredItemToInteract: {fileID: 1300089171010998599, guid: 834044c9d7b103b4481e615182030c8b, type: 3}
 --- !u!1 &6695528416699016586
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,13 +22,19 @@ public interface IHexable
         get;
         set;
     }
+
+    public int MovementMultiplier
+    {
+        get; 
+        set;
+    }
     public void Interaction(Player player); //Metoda mająca odpowiadać za interakcje
-    public void Depleted();    //Metoda odpowiadająca za skończenie się zasobu
+    public void Depleted();                 //Metoda odpowiadająca za skończenie się zasobu
 }
 
 public enum HexType             //Typ Pola
 {
-    TREE, GRASS, NULL
+    TREE, GRASS, FISHING, BUSH, STONE, STATION, NULL
 }
 
 namespace HexUtils
