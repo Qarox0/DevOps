@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0ba4ae3f31c1d4b88d073dbe594d71, type: 3}
+  m_Name: Berrie Juice 1
+  m_EditorClassIdentifier: 
+  ItemNeeded1:
+    ItemNeeded: {fileID: 8384901244394430122, guid: f44e8e757066ec3488ac731fc1792eea, type: 3}
+    Amount: 3
+  ItemNeeded2:
+    ItemNeeded: {fileID: 0}
+    Amount: 0
+  ItemNeeded3:
+    ItemNeeded: {fileID: 0}
+    Amount: 0
+  RawOutput:
+    ItemNeeded: {fileID: 8384901244394430122, guid: 8dd2040f83caf754b9bee265249b3f33, type: 3}
+    Amount: 3
+  Output:
+    ItemNeeded: {fileID: 6145425212028007168, guid: e976dc99b5ca1b741a63d39fefe409b3, type: 3}
+    Amount: 1
+  FailureOutput:
+    ItemNeeded: {fileID: 8384901244394430122, guid: 8dd2040f83caf754b9bee265249b3f33, type: 3}
+    Amount: 1
+  MinimalTime: 15
+  MaximalTime: 45

@@ -70,10 +70,11 @@ public class CookingManager : MonoBehaviour
         {
             var item = Instantiate(_actualCampfire.Output.ItemNeeded, _outputSlot.transform);
             item.GetComponent<Item>().Quantity = _actualCampfire.Output.Amount;
-            if (_actualCampfire.GetFuelPrefab() != null)
+            if (_actualCampfire.GetFuelPrefab() != null && _actualCampfire.GetFuelPrefab().GetComponent<Item>().Quantity > 1)
             {
                 var fuel = Instantiate(_actualCampfire.GetFuelPrefab(), _fuelSlot.transform);
                 fuel.GetComponent<Item>().Quantity = _actualCampfire.FuelAmount-1;
+                
             }
         }
         SetCookingVisual(_actualCampfire.IsCooking);
@@ -124,6 +125,10 @@ public class CookingManager : MonoBehaviour
         {
             _fuelSlot.GetComponentInChildren<Item>().Quantity--;
             _actualCampfire.AddBurningTime(_fuelSlot.GetComponentInChildren<Item>()._fuelValue);
+            if (_fuelSlot.GetComponentInChildren<Item>().Quantity == 0)
+            {
+                Destroy(_fuelSlot.transform.GetChild(0).gameObject);
+            }
         }
         
     }
