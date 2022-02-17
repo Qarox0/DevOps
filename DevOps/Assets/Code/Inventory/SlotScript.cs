@@ -20,8 +20,6 @@ public class SlotScript : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        //Debug.Log("drop");
-
         var objectOnSlot  = GetComponentInChildren<Item>();
         var droppedObject = eventData.pointerDrag;
         if (objectOnSlot != null && droppedObject != null)
