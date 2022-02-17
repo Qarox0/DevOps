@@ -52,14 +52,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "LaunchDebugEvent",
-                    "type": "Button",
-                    "id": "809cf312-7c7d-41d8-8a4b-e07d2c8499ab",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -126,17 +118,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenBuilding",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cf80e41a-eff3-41c0-8895-96ed004062ff",
-                    "path": "<Keyboard>/#(k)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LaunchDebugEvent",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

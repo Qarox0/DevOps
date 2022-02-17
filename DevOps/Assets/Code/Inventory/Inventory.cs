@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,7 +15,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] private GameObject       _slotPrefab;              //Prefab Slotów
     [Tooltip("Max carry weight")]
     [SerializeField] private float _maxWeight; //Max obciążenie ekwipunku
-    
     [Space]
     [Header("DEBUG")]
     [Tooltip("DEBUG: list of slots")]

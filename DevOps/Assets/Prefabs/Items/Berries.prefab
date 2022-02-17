@@ -173,15 +173,7 @@ MonoBehaviour:
   _maxStackQuantity: 64
   _name: Berries
   _type: 0
-  _fuelValue: 0
-  _durability: 1
   _text: {fileID: 8035128431471631887}
-  _isEdible: 0
-  _edibleImplementation: {fileID: 0}
-  _catchDictionary:
-  - EventName: DebugEvent
-    EventChance: 100
-  _catchMultiplier: 0
 --- !u!225 &7429918876697717210
 CanvasGroup:
   m_ObjectHideFlags: 0

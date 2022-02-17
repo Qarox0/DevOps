@@ -9,10 +9,6 @@ public class PlayerStats
     public float Luck         { get; set; }
 
     private float _torsoDamage;
-
-    private float _hunger;
-
-    private float _thirsty;
     public float TorsoDamage
     {
         get => _torsoDamage;
@@ -41,17 +37,6 @@ public class PlayerStats
     {
         get => _sanity;
         set => _sanity = Mathf.Clamp(value, 0, 100);
-    }
-    public float Thirsty
-    {
-        get => _thirsty;
-        set => _thirsty = Mathf.Clamp(value, 0, 100);
-    }
-
-    public float Hunger
-    {
-        get => _hunger;
-        set => _hunger = Mathf.Clamp(value, 0, 100);
     }
 
     

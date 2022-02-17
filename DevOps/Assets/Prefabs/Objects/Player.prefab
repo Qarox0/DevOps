@@ -141,86 +141,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 376d0268-2fcc-45e1-a612-4e1643ba59aa
     m_ActionName: PlayerControlls/Move[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640926776}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: ToggleInventory
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b0c00b95-bf1f-4420-99e5-47e0e3a2fd38
-    m_ActionName: PlayerControlls/OpenInventory[/Keyboard/i]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640926776}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: Fishing
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8eada715-0183-41a3-8b45-aa528214788d
-    m_ActionName: PlayerControlls/Fish[/Keyboard/f]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640926776}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: ToggleCrafting
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3185dc77-186d-4781-adcf-76205a403c6a
-    m_ActionName: PlayerControlls/OpenCrafting[/Keyboard/c]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640926776}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: ToggleBuilding
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 935f3a30-6470-4058-947e-c43381e7a0cc
-    m_ActionName: PlayerControlls/OpenBuilding[/Keyboard/b]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640926776}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: LaunchDebugEvent
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 809cf312-7c7d-41d8-8a4b-e07d2c8499ab
-    m_ActionName: PlayerControlls/LaunchDebugEvent[/Keyboard/k]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControlls
@@ -238,7 +158,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917fb3bfde570074aa983dae0535778c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventoryHandle: {fileID: 0}
-  _craftingHandle: {fileID: 0}
-  _buildingHandle: {fileID: 0}
-  _timeTakenToMove: 0
+  hammerPrefab: {fileID: 3546721669093133968, guid: 28af54cf76440284383cafe508e0dab1, type: 3}
