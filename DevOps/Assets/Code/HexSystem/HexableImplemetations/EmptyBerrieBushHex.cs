@@ -41,6 +41,7 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
             _useCount++;
             Inventory.GetInventoryInstance().AddItemToInventory(_stickPrefab);
             TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
+            SFXManager.GetInstance().Play("CollectSticks");
         }
         else
         {

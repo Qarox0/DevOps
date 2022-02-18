@@ -42,6 +42,7 @@ public class TreeHex : MonoBehaviour, IHexable
             Inventory.GetInventoryInstance().AddItemToInventory(_woodInvPrefab);
             TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
             _useCount++;
+            SFXManager.GetInstance().Play("Chop");
             Depleted();
         }
         //Debug.Log("not have");

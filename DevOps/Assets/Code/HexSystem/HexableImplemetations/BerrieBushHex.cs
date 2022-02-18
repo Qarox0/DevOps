@@ -36,6 +36,7 @@ public class BerrieBushHex : MonoBehaviour, IHexable
             _useCount++;
             Inventory.GetInventoryInstance().AddItemToInventory(_berriesPrefab);
             TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
+            SFXManager.GetInstance().Play("CollectBerries");
         }
         else
         {

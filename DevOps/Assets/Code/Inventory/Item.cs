@@ -31,7 +31,10 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Space]
     [Header("Eating")]
     [SerializeField]                             private bool   _isEdible; //Czy jest jadalny
-    [Tooltip("What is happening on eat")] [SerializeField] [RequireInterface(typeof(IEdible))]
+    [Tooltip("What is happening on eat")] [SerializeField] 
+    #if UNITY_EDITOR
+    [RequireInterface(typeof(IEdible))]
+    #endif
     private Object _edibleImplementation; //Referencja do implementacji edible
     
     [Space]
