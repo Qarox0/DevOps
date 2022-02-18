@@ -6,7 +6,10 @@ using Object = UnityEngine.Object;
 
 public class HexScript : MonoBehaviour
 {
-    [Header("Grid Fields")] [Tooltip("Field for object attached on this hexagon")] [SerializeField] [RequireInterface(typeof(IHexable))]
+    [Header("Grid Fields")] [Tooltip("Field for object attached on this hexagon")] [SerializeField] 
+    #if UNITY_EDITOR
+    [RequireInterface(typeof(IHexable))]
+    #endif
     private Object _objectOnField;    //Obiekt interaktywny na hexie
     [Tooltip("radius of circle drawn to find nearby hexes")]
     [SerializeField] private float _radiusOfNearHexCheck = 5f;
@@ -40,7 +43,7 @@ public class HexScript : MonoBehaviour
 
         return false;
     }
-    
+    #if UNITY_EDITOR
     public void OnDrawGizmosSelected()      //rysuje gizmos jeśli jest zaznaczone
     {
         if (_isDrawingGizmos)
@@ -49,7 +52,7 @@ public class HexScript : MonoBehaviour
             Gizmos.DrawSphere(transform.position, _radiusOfNearHexCheck);
         }
     }
-
+    #endif
     public bool IsAdjecent(GameObject hexToCheck)    //Czy hex jest sąsiadujący
     {
         foreach (var hex in _surroundingHexes)

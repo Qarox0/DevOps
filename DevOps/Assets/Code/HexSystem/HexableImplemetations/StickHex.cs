@@ -34,6 +34,7 @@ public class StickHex : MonoBehaviour, IHexable
     {
         Inventory.GetInventoryInstance().AddItemToInventory(_stickInvPrefab);
         TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
+        SFXManager.GetInstance().Play("CollectSticks");
         _useCount++;
         Depleted();
     }

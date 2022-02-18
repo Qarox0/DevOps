@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             _inventoryHandle.SetActive(!_inventoryHandle.activeSelf);
+            SFXManager.GetInstance().Play("EQ");
         }
     }
     public void ToggleCrafting(InputAction.CallbackContext value) //przełączanie ekwipunku
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             _craftingHandle.SetActive(!_craftingHandle.activeSelf);
+            SFXManager.GetInstance().Play("EQ");
         }
     }
     
@@ -102,6 +104,7 @@ public class Player : MonoBehaviour
         if (value.started)
         {
             _buildingHandle.SetActive(!_buildingHandle.activeSelf);
+            SFXManager.GetInstance().Play("EQ");
         }
     }
 

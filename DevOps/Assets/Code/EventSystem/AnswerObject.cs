@@ -7,4 +7,5 @@ public class AnswerObject : ScriptableObject
 {
     public string ResultName        = "";
     public string AnswerDescription = "";
+    public string Params            = "";
 }

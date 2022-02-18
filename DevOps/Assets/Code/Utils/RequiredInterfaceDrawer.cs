@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(RequireInterfaceAttribute))]
 public class RequiredInterfaceDrawer : PropertyDrawer
 {
@@ -40,3 +41,4 @@ public class RequiredInterfaceDrawer : PropertyDrawer
         }
     }
 }
+#endif

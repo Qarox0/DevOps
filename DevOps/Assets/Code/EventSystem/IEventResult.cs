@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEventResult
 {
-    public void DoResult();
+    public void DoResult(string _params);
 }
