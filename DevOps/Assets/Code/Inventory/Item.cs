@@ -173,10 +173,10 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             }
 
         }
-        else if (Keyboard.current.leftShiftKey.isPressed)
-        {
-            Divider.GetInstance().init(gameObject);
-        }
+        // else if (Keyboard.current.leftShiftKey.isPressed)
+        // {
+        //     Divider.GetInstance().init(gameObject);
+        // }
         transform.SetParent(_oldParent,false);
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         
