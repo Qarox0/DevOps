@@ -1,31 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
+using Code.Utils;
 using UnityEngine;
 using Random = System.Random;
 
 public class TrapHex : MonoBehaviour, IHexable
 {
-    public  RequiredItem BaitInSlot;
-    public  RequiredItem TrapInSlot;
-    private CatchEnum    _catched; //co zostało złapane w tego hexa
-    private bool         _isCatched = false;
+    [SerializeField] private string _prefabName = "";
 
-    void Start()
+    #region IHexable Fields
+
+    //Pola właściwości
+    public string       PrefabName         { get; set; }
+    public HexType      FieldType          { get; set; }
+    public bool         IsLaunchingOnEnter { get; set; }
+    public bool         IsPassable         { get; set; }
+    public int          MovementMultiplier { get; set; }
+    public int          UseCount           { get; set; }
+    public int          GrowTime           { get; set; }
+    public CatchEnum    Catched            { get; set; }
+    public bool         IsCatched          { get; set; }
+    public RequiredItem BaitInSlot         { get; set; }
+    public RequiredItem TrapInSlot         { get; set; }
+    public int          FuelBurningTime    { get; set; }
+    public string       FuelPrefab         { get; set; }
+    public int          TimePassed         { get; set; }
+    public string       Recipe             { get; set; }
+    public RequiredItem Output             { get; set; }
+    public bool         IsCooking          { get; set; }
+    public int          FuelAmount         { get; set; }
+
+    #endregion
+
+    private void Start()
     {
-        FieldType          = HexType.STATION;
-        IsLaunchingOnEnter = false;
-        IsPassable         = true;
-        MovementMultiplier = 1;
+        FieldType                       =  HexType.STATION;
+        IsLaunchingOnEnter              =  false;
+        IsPassable                      =  true;
+        MovementMultiplier              =  1;
+        UseCount                        =  0;
+        GrowTime                        =  0;
+        Catched                         =  default(CatchEnum);
+        IsCatched                       =  false;
+        BaitInSlot                      =  default(RequiredItem);
+        TrapInSlot                      =  default(RequiredItem);
+        PrefabName                      =  _prefabName;
+        SLAM.GetInstance().OnSaveLoaded += OnLoad;
     }
 
-    public HexType FieldType          { get; set; }
-    public bool    IsLaunchingOnEnter { get; set; }
-    public bool    IsPassable         { get; set; }
-    public int     MovementMultiplier { get; set; }
+    void OnLoad()
+    {
+        TrapManager.GetInstance().startCatching(this);
+    }
+
     public void    Interaction(Player player)
     {
-        if(_isCatched)
-            EventManager.GetInstance().LaunchEvent(_catched.EventName);
+        if(IsCatched)
+            EventManager.GetInstance().LaunchEvent(Catched.EventName);
         else
         {
             TrapManager.GetInstance().ToggleTrapPanel(this);
@@ -44,12 +75,12 @@ public class TrapHex : MonoBehaviour, IHexable
         CatchEnum trapCatch = default(CatchEnum);
         if (BaitInSlot.ItemNeeded != null)
         {
-            baitCatch = BaitInSlot.ItemNeeded.GetComponent<Item>().GetCatch();
+            baitCatch = Resources.Load<GameObject>(GlobalConsts.PathToItems +BaitInSlot.ItemNeeded).GetComponent<Item>().GetCatch();
         }
 
         if (TrapInSlot.ItemNeeded != null)
         {
-            trapCatch = TrapInSlot.ItemNeeded.GetComponent<Item>().GetCatch();
+            trapCatch = Resources.Load<GameObject>(GlobalConsts.PathToItems +TrapInSlot.ItemNeeded).GetComponent<Item>().GetCatch();
         }
 
         if (!baitCatch.Equals(default(CatchEnum)) && !trapCatch.Equals(default(CatchEnum)))
@@ -58,23 +89,24 @@ public class TrapHex : MonoBehaviour, IHexable
             int    roll   = random.Next(0, 100);
             if (roll < 51)
             {
-                _catched = baitCatch;
+                Catched = baitCatch;
             }
             else
             {
-                _catched = trapCatch;
+                Catched = trapCatch;
             }
         } else if( !baitCatch.Equals(default(CatchEnum)))
         {
-            _catched = baitCatch;
+            Catched = baitCatch;
         } else if (!trapCatch.Equals(default(CatchEnum)))
         {
-            _catched = trapCatch;
+            Catched = trapCatch;
         }
 
-        if (!_catched.Equals(default(CatchEnum)))
+        if (!Catched.Equals(default(CatchEnum)))
         {
-            _isCatched = true;
+            IsCatched = true;
         }
+        
     }
 }

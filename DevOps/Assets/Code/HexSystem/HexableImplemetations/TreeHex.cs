@@ -15,16 +15,31 @@ public class TreeHex : MonoBehaviour, IHexable
     [SerializeField] private GameObject _woodInvPrefab;          //Prefab drewna, które trafia do ekwipunku
     [Tooltip("Item required to interact")]
     [SerializeField] private Item       _requiredItemToInteract; //Item potrzebny do interakcji
-    
+    [SerializeField] private string _prefabName = "";
+
+    #region IHexable Fields
+
     //Pola właściwości
-    public HexType FieldType          { get; set; }
-    public bool    IsLaunchingOnEnter { get; set; }
-    public bool    IsPassable         { get; set; }
-    public int     MovementMultiplier { get; set; }
+    public string       PrefabName         { get; set; }
+    public HexType      FieldType          { get; set; }
+    public bool         IsLaunchingOnEnter { get; set; }
+    public bool         IsPassable         { get; set; }
+    public int          MovementMultiplier { get; set; }
+    public int          UseCount           { get; set; }
+    public int          GrowTime           { get; set; }
+    public CatchEnum    Catched            { get; set; }
+    public bool         IsCatched          { get; set; }
+    public RequiredItem BaitInSlot         { get; set; }
+    public RequiredItem TrapInSlot         { get; set; }
+    public int          FuelBurningTime    { get; set; }
+    public string       FuelPrefab         { get; set; }
+    public int          TimePassed         { get; set; }
+    public string       Recipe             { get; set; }
+    public RequiredItem Output             { get; set; }
+    public bool         IsCooking          { get; set; }
+    public int          FuelAmount         { get; set; }
 
-    //Zmienne Prywatne
-    private int _useCount = 0;
-
+    #endregion
     private void Start()
     {
         //ustawianie właściwości
@@ -32,6 +47,13 @@ public class TreeHex : MonoBehaviour, IHexable
         IsLaunchingOnEnter = false;
         IsPassable         = true;
         MovementMultiplier = 2;
+        UseCount           = 0;
+        GrowTime           = 0;
+        Catched            = default(CatchEnum);
+        IsCatched          = false;
+        BaitInSlot         = default(RequiredItem);
+        TrapInSlot         = default(RequiredItem);
+        PrefabName         = _prefabName;
     }
 
     #region InheritedFromIHexable
@@ -41,16 +63,15 @@ public class TreeHex : MonoBehaviour, IHexable
         {
             Inventory.GetInventoryInstance().AddItemToInventory(_woodInvPrefab);
             TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
-            _useCount++;
+            UseCount++;
             SFXManager.GetInstance().Play("Chop");
             Depleted();
         }
-        //Debug.Log("not have");
     }
 
     public void    Depleted()
     {
-        if (_useCount == _maxUseCount)
+        if (UseCount == _maxUseCount)
         {
             Destroy(this.gameObject);
         }

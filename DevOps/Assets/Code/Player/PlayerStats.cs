@@ -1,6 +1,8 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 
+[Serializable]
 public class PlayerStats
 {
     public float Health       { get; set; }

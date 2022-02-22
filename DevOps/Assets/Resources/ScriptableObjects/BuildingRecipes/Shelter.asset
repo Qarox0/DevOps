@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Shelter
   m_EditorClassIdentifier: 
   ItemsNeeded:
-  - ItemNeeded: {fileID: 8384901244394430122, guid: 8d880089658ec7741aa1cd75b93449b2, type: 3}
+  - ItemNeeded: Log
     Amount: 20
-  - ItemNeeded: {fileID: 3546721669093133968, guid: 21340f50d94dea1449f198c40b11ac71, type: 3}
+  - ItemNeeded: Rope
     Amount: 10
   BuildMenuImage: {fileID: 21300000, guid: 48a83a9dd948d0447b9798f1c20971c5, type: 3}
   Output: {fileID: 4083225789778600828, guid: 8aece4350b2a5d64a976e32d52a18c67, type: 3}

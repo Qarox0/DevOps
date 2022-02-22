@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
+using Code.Utils;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveable
 {
     [Header("Inventory Properties")]
     [Tooltip("How many slots have to be generated")]
@@ -102,7 +105,7 @@ public class Inventory : MonoBehaviour
         int i = 0;
         foreach (var item in recipe.ItemsNeeded)
         {
-            if (GetSumOfItem(item.ItemNeeded.GetComponent<Item>()) >= item.Amount)
+            if (GetSumOfItem(Resources.Load<GameObject>(GlobalConsts.PathToItems +item.ItemNeeded).GetComponent<Item>()) >= item.Amount)
             {
                 i++;
             }
@@ -204,6 +207,71 @@ public class Inventory : MonoBehaviour
         }
         CalculateWeight();
     }
+    
+    
     #endregion
 
+    public object CaptureState()
+    {
+        Dictionary<int,RequiredItem> itemsInEq = new Dictionary<int, RequiredItem>();
+        int                          i         = 0;
+        foreach (var slot in _slotsList)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                var item = slot.GetComponentInChildren<Item>();
+                if (item != null)
+                {
+                    itemsInEq.Add(i,
+                                  new RequiredItem(item.Quantity,
+                                                   item.PrefabName));
+                }
+            }
+            else
+            {
+                itemsInEq.Add(i, new RequiredItem());
+
+            }
+
+            i++;
+        }
+
+        foreach (var test in itemsInEq)
+        {
+        }
+        return new InventorySaveData
+        {
+            items = itemsInEq
+        };
+    }
+
+    public void RestoreState(object state)
+    {
+        foreach (var slot in _slotsList)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                Destroy(slot.transform.GetChild(0).gameObject);
+            }
+        }
+        var data = (InventorySaveData) state;
+        int i    = 0;
+        foreach (var item in data.items)
+        {
+            if (!item.Value.Equals(default(RequiredItem)) &&!item.Value.ItemNeeded.Equals(String.Empty))
+            {
+                    var inst = Instantiate(Resources.Load<GameObject>(GlobalConsts.PathToItems + item.Value.ItemNeeded),
+                                           _slotsList[i].transform, false);
+                    inst.GetComponent<Item>().Quantity = item.Value.Amount;
+
+            }
+
+            i++;
+        }
+    }
+    [Serializable]
+    private struct InventorySaveData
+    {
+        public Dictionary<int,RequiredItem> items;
+    }
 }

@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Utils;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class HexScript : MonoBehaviour
+public class HexScript : MonoBehaviour, ISaveable
 {
     [Header("Grid Fields")] [Tooltip("Field for object attached on this hexagon")] [SerializeField] 
     #if UNITY_EDITOR
@@ -115,5 +117,160 @@ public class HexScript : MonoBehaviour
                 hexGameObject.GetComponent<IHexable>().Interaction(player);
             }
         }
+    }
+
+    public object CaptureState()
+    {
+        string       hexObjectPrefabName = "";
+        int          UseCount            = 0;
+        int          GrowTime            = 0;
+        CatchEnum    Catched             = default;
+        bool         IsCatched           = false;
+        RequiredItem BaitInSlot          = default;
+        RequiredItem TrapInSlot          = default;
+        int          FuelBurningTime     = 0;
+        string       FuelPrefab          = "";
+        int          TimePassed          = 0;
+        string       Recipe              = "";
+        RequiredItem Output              = default;
+        bool         IsCooking           = false;
+        int          FuelAmount          = 0;
+        if (_objectOnField != null) //Jeśli obiekt nie jest pusty
+        {
+            var hexConversion = _objectOnField as IHexable; //Konwertuj na Hexable
+            if (hexConversion != null)                      //Sprawdź czy konwersja się udała
+            {
+                
+
+                hexObjectPrefabName = hexConversion.PrefabName;
+                UseCount            = hexConversion.UseCount;
+                GrowTime            = hexConversion.GrowTime;
+                Catched             = hexConversion.Catched;
+                IsCatched           = hexConversion.IsCatched;
+                BaitInSlot          = hexConversion.BaitInSlot;
+                TrapInSlot          = hexConversion.TrapInSlot;
+                FuelBurningTime     = hexConversion.FuelBurningTime;
+                FuelPrefab          = hexConversion.FuelPrefab;
+                TimePassed          = hexConversion.TimePassed;
+                Recipe              = hexConversion.Recipe;
+                Output              = hexConversion.Output;
+                IsCooking           = hexConversion.IsCooking;
+                FuelAmount          = hexConversion.FuelAmount;
+            }
+        }
+        var hexGameObject = _objectOnField as GameObject;
+        if (hexGameObject != null)
+        {hexObjectPrefabName                                       = hexGameObject.GetComponent<IHexable>().PrefabName;
+            UseCount                                               = hexGameObject.GetComponent<IHexable>().UseCount;
+            GrowTime                                               = hexGameObject.GetComponent<IHexable>().GrowTime;
+            Catched                                                = hexGameObject.GetComponent<IHexable>().Catched;
+            IsCatched                                              = hexGameObject.GetComponent<IHexable>().IsCatched;
+            BaitInSlot                                             = hexGameObject.GetComponent<IHexable>().BaitInSlot;
+            TrapInSlot                                             = hexGameObject.GetComponent<IHexable>().TrapInSlot;
+            FuelBurningTime                                        = hexGameObject.GetComponent<IHexable>().FuelBurningTime;
+            FuelPrefab                                             = hexGameObject.GetComponent<IHexable>().FuelPrefab;
+            TimePassed                                             = hexGameObject.GetComponent<IHexable>().TimePassed;
+            Recipe                                                 = hexGameObject.GetComponent<IHexable>().Recipe;
+            Output                                                 = hexGameObject.GetComponent<IHexable>().Output;
+            IsCooking                                              = hexGameObject.GetComponent<IHexable>().IsCooking;
+            FuelAmount                                             = hexGameObject.GetComponent<IHexable>().FuelAmount;
+        }
+        return new HexSaveData
+        {
+            RadiusOfNearHexCheck    = _radiusOfNearHexCheck,
+            MovementMultiplier      = MovementMultiplier,
+            ObjectOnFieldPrefabName = hexObjectPrefabName,
+            UseCount                = UseCount,
+            GrowTime                = GrowTime,
+            Catched                 = Catched,
+            IsCatched               = IsCatched,
+            BaitInSlot              = BaitInSlot,
+            TrapInSlot              = TrapInSlot,
+            FuelBurningTime         = FuelBurningTime,
+            FuelPrefab              = FuelPrefab,
+            TimePassed              = TimePassed,
+            Recipe                  = Recipe,
+            Output                  = Output,
+            IsCooking               = IsCooking,
+            FuelAmount              = FuelAmount
+        };
+    }
+    
+
+    public void   RestoreState(object state)
+    {
+        if (gameObject.transform.childCount > 0)
+        {
+            if(gameObject.transform.GetChild(0).GetComponent<IHexable>() != null)
+                Destroy(gameObject.transform.GetChild(0).gameObject);
+        }
+        var data = (HexSaveData) state;
+        var hexObj = Resources.Load<GameObject>(GlobalConsts.PathToHexObjects + data.ObjectOnFieldPrefabName);
+        if (hexObj != null)
+        {
+            var child = Instantiate(hexObj,
+                gameObject.transform,
+            false);
+            SetObjectOnField(child);
+            if (_objectOnField != null)
+            {
+                var hexConversion = _objectOnField as IHexable;
+                if (hexConversion != null) //Sprawdź czy konwersja się udała
+                {
+                    hexConversion.PrefabName      = data.ObjectOnFieldPrefabName;
+                    hexConversion.UseCount        = data.UseCount;
+                    hexConversion.GrowTime        = data.GrowTime;
+                    hexConversion.Catched         = data.Catched;
+                    hexConversion.IsCatched       = data.IsCatched;
+                    hexConversion.BaitInSlot      = data.BaitInSlot;
+                    hexConversion.TrapInSlot      = data.TrapInSlot;
+                    hexConversion.FuelBurningTime = data.FuelBurningTime;
+                    hexConversion.FuelPrefab      = data.FuelPrefab;
+                    hexConversion.TimePassed      = data.TimePassed;
+                    hexConversion.Recipe          = data.Recipe;
+                    hexConversion.Output          = data.Output;
+                    hexConversion.IsCooking       = data.IsCooking;
+                    hexConversion.FuelAmount      = data.FuelAmount;
+                }
+                var hexGameObject = _objectOnField as GameObject;
+                if (hexGameObject != null)
+                {
+                    hexGameObject.GetComponent<IHexable>().PrefabName      = data.ObjectOnFieldPrefabName;
+                    hexGameObject.GetComponent<IHexable>().UseCount        = data.UseCount;
+                    hexGameObject.GetComponent<IHexable>().GrowTime        = data.GrowTime;
+                    hexGameObject.GetComponent<IHexable>().Catched         = data.Catched;
+                    hexGameObject.GetComponent<IHexable>().IsCatched       = data.IsCatched;
+                    hexGameObject.GetComponent<IHexable>().BaitInSlot      = data.BaitInSlot;
+                    hexGameObject.GetComponent<IHexable>().TrapInSlot      = data.TrapInSlot;
+                    hexGameObject.GetComponent<IHexable>().FuelBurningTime = data.FuelBurningTime;
+                    hexGameObject.GetComponent<IHexable>().FuelPrefab      = data.FuelPrefab;
+                    hexGameObject.GetComponent<IHexable>().TimePassed      = data.TimePassed;
+                    hexGameObject.GetComponent<IHexable>().Recipe          = data.Recipe;
+                    hexGameObject.GetComponent<IHexable>().Output          = data.Output;
+                    hexGameObject.GetComponent<IHexable>().IsCooking       = data.IsCooking;
+                    hexGameObject.GetComponent<IHexable>().FuelAmount      = data.FuelAmount;
+                }
+            }
+        }
+    }
+    [Serializable]
+    private struct HexSaveData
+    {
+        public float        RadiusOfNearHexCheck;
+        public int          MovementMultiplier;
+        public string       ObjectOnFieldPrefabName;
+        public int          UseCount;
+        public int          GrowTime;
+        public CatchEnum    Catched;
+        public bool         IsCatched;
+        public RequiredItem BaitInSlot;
+        public RequiredItem TrapInSlot;
+        public int          FuelBurningTime;
+        public string       FuelPrefab;
+        public int          TimePassed;
+        public string       Recipe;
+        public RequiredItem Output;
+        public bool         IsCooking;
+        public int          FuelAmount;
     }
 }

@@ -10,9 +10,31 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
     [SerializeField] private int        _timeTaken        = 5;
     [SerializeField] private int        _maxUseCount      = 3;
     [SerializeField] private int        _timeNeededToGrow = 45;
-    private                  int        _useCount         = 0;
-    private                  int        _growTime         = 0;
+    [SerializeField] private string     _prefabName       = "";
     
+    #region IHexable Fields
+
+    //Pola właściwości
+    public string       PrefabName         { get; set; }
+    public HexType      FieldType          { get; set; }
+    public bool         IsLaunchingOnEnter { get; set; }
+    public bool         IsPassable         { get; set; }
+    public int          MovementMultiplier { get; set; }
+    public int          UseCount           { get; set; }
+    public int          GrowTime           { get; set; }
+    public CatchEnum    Catched            { get; set; }
+    public bool         IsCatched          { get; set; }
+    public RequiredItem BaitInSlot         { get; set; }
+    public RequiredItem TrapInSlot         { get; set; }
+    public int          FuelBurningTime    { get; set; }
+    public string       FuelPrefab         { get; set; }
+    public int          TimePassed         { get; set; }
+    public string       Recipe             { get; set; }
+    public RequiredItem Output             { get; set; }
+    public bool         IsCooking          { get; set; }
+    public int          FuelAmount         { get; set; }
+
+    #endregion
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +44,13 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
         IsPassable                                        =  true;
         IsLaunchingOnEnter                                =  false;
         MovementMultiplier                                =  2;
+        UseCount                                          =  0;
+        GrowTime                                          =  0;
+        Catched                                           =  default(CatchEnum);
+        IsCatched                                         =  false;
+        BaitInSlot                                        =  default(RequiredItem);
+        TrapInSlot                                        =  default(RequiredItem);
+        PrefabName                                        =  _prefabName;
     }
 
     // Update is called once per frame
@@ -30,15 +59,11 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
         
     }
 
-    public HexType FieldType          { get; set; }
-    public bool    IsLaunchingOnEnter { get; set; }
-    public bool    IsPassable         { get; set; }
-    public int     MovementMultiplier { get; set; }
     public void Interaction(Player player)
     {
-        if (_useCount < _maxUseCount)
+        if (UseCount < _maxUseCount)
         {
-            _useCount++;
+            UseCount++;
             Inventory.GetInventoryInstance().AddItemToInventory(_stickPrefab);
             TimeManager.GetTimeManagerInstance().PassTime(_timeTaken);
             SFXManager.GetInstance().Play("CollectSticks");
@@ -57,8 +82,8 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
 
     private void Grow(int time)
     {
-        _growTime += time;
-        if (_growTime >= _timeNeededToGrow)
+        GrowTime += time;
+        if (GrowTime >= _timeNeededToGrow)
         {
             var newBush = Instantiate(_berriesBushPrefab, transform.parent);
             transform.parent.GetComponent<HexScript>().SetObjectOnField(newBush);

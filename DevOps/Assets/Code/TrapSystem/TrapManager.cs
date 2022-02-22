@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using Code.Utils;
 
 public class TrapManager : MonoBehaviour
 {
@@ -47,13 +49,14 @@ public class TrapManager : MonoBehaviour
     {
         if (!trap.TrapInSlot.Equals(default(RequiredItem)))
         {
-            var titem = Instantiate(trap.TrapInSlot.ItemNeeded, _trapSlot);
+            var titem = Instantiate(Resources.Load<GameObject>(GlobalConsts.PathToItems +trap.TrapInSlot.ItemNeeded),
+                                    _trapSlot);
             titem.GetComponent<Item>().Quantity = trap.TrapInSlot.Amount;
         }
 
         if (!trap.BaitInSlot.Equals(default(RequiredItem)))
         {
-            var bitem = Instantiate(trap.BaitInSlot.ItemNeeded, _baitSlot);
+            var bitem = Instantiate(Resources.Load<GameObject>(GlobalConsts.PathToItems +trap.BaitInSlot.ItemNeeded), _baitSlot);
             bitem.GetComponent<Item>().Quantity = trap.BaitInSlot.Amount;
         }
 
@@ -63,18 +66,53 @@ public class TrapManager : MonoBehaviour
 
     private void startCatching()
     {
-        TimeManager.GetTimeManagerInstance().onTimePasses += _actualTrap.TryCatch;
+        bool haveSomething = false;
         if (_baitSlot.childCount > 0)
         {
             var child = _baitSlot.GetComponentInChildren<Item>();
-            _actualTrap.BaitInSlot.ItemNeeded = child.gameObject;
-            _actualTrap.BaitInSlot.Amount     = child.Quantity;
+            var temp  = _actualTrap.BaitInSlot;
+            temp.ItemNeeded        = child.PrefabName;
+            temp.Amount            = child.Quantity;
+            _actualTrap.BaitInSlot = temp;
+            haveSomething          = true;
         }
         if (_trapSlot.childCount > 0)
         {
             var child = _trapSlot.GetComponentInChildren<Item>();
-            _actualTrap.TrapInSlot.ItemNeeded = child.gameObject;
-            _actualTrap.TrapInSlot.Amount     = child.Quantity;
+            var temp = _actualTrap.TrapInSlot;
+            temp.ItemNeeded        = child.PrefabName;
+            temp.Amount            = child.Quantity;
+            _actualTrap.TrapInSlot = temp;
+            haveSomething          = true;
         }
+        if(haveSomething)        
+            TimeManager.GetTimeManagerInstance().onTimePasses += _actualTrap.TryCatch;
+
+    }
+    public void startCatching(TrapHex trapHex)
+    {
+        _actualTrap = trapHex;
+        bool haveSomething = false;
+        if (_baitSlot.childCount > 0)
+        {
+            var child = _baitSlot.GetComponentInChildren<Item>();
+            var temp  = _actualTrap.BaitInSlot;
+            temp.ItemNeeded        = child.PrefabName;
+            temp.Amount            = child.Quantity;
+            _actualTrap.BaitInSlot = temp;
+            haveSomething          = true;
+        }
+        if (_trapSlot.childCount > 0)
+        {
+            var child = _trapSlot.GetComponentInChildren<Item>();
+            var temp = _actualTrap.TrapInSlot;
+            temp.ItemNeeded        = child.PrefabName;
+            temp.Amount            = child.Quantity;
+            _actualTrap.TrapInSlot = temp;
+            haveSomething          = true;
+        }
+        if(haveSomething)        
+            TimeManager.GetTimeManagerInstance().onTimePasses += _actualTrap.TryCatch;
+
     }
 }

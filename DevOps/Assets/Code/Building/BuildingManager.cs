@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,18 +57,19 @@ public class BuildingManager : MonoBehaviour
         var fieldSelected      = _selectedBuildingPrefab.GetComponent<SelectableField>();
         if (standingHex.IsHexEmpty())
         {
+
             if (Inventory.GetInventoryInstance()
                          .CheckForBuildingRecipe(fieldSelected.BuildRecipe))
             {
+
                 foreach (var itemRequired in fieldSelected.BuildRecipe.ItemsNeeded)
                 {
                     Inventory.GetInventoryInstance()
-                             .SubstractFromInventory(itemRequired.ItemNeeded.GetComponent<Item>(), itemRequired.Amount);
+                             .SubstractFromInventory(Resources.Load<GameObject>(GlobalConsts.PathToItems +itemRequired.ItemNeeded).GetComponent<Item>(), itemRequired.Amount);
                 }
 
                 var builded =Instantiate(fieldSelected.BuildRecipe.Output, standingHex.transform);
                 standingHex.SetObjectOnField(builded);
-                SFXManager.GetInstance().Play("Build");
             }
         }
     }

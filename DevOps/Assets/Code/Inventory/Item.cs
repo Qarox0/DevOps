@@ -39,9 +39,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     
     [Space]
     [Header("Trap")]
-    [SerializeField] private List<CatchEnum> _catchDictionary;  //Lista eventów do łapania
-    [SerializeField] private float           _catchMultiplier;  //Mnożnika szansy na złapanie
-    
+    [SerializeField] private List<CatchEnum> _catchDictionary; //Lista eventów do łapania
+    [SerializeField] private float  _catchMultiplier;          //Mnożnika szansy na złapanie
+    [SerializeField] public  string PrefabName;
     
 
     private       int         _quantity = 0;    //ile jest aktualnie
@@ -206,28 +206,4 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 public enum ItemType    //typ itemu
 {
     RESOURCE, TOOL, FOOD
-}
-
-[Serializable]
-public struct RequiredItem
-{
-    public GameObject ItemNeeded;
-    public int        Amount;
-
-    public void SetAmount(int value)
-    {
-        Amount = value;
-    }
-
-    public void SetItem(GameObject gameObject)
-    {
-        ItemNeeded = gameObject;
-    }
-
-    public RequiredItem(int amount = 0, GameObject item = null)
-    {
-        Amount     = amount;
-        ItemNeeded = item;
-        return;
-    }
 }

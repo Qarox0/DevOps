@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Berrie Juice 1
   m_EditorClassIdentifier: 
   ItemNeeded1:
-    ItemNeeded: {fileID: 8384901244394430122, guid: f44e8e757066ec3488ac731fc1792eea, type: 3}
+    ItemNeeded: Berries
     Amount: 3
   ItemNeeded2:
-    ItemNeeded: {fileID: 0}
+    ItemNeeded: 
     Amount: 0
   ItemNeeded3:
-    ItemNeeded: {fileID: 0}
+    ItemNeeded: 
     Amount: 0
   RawOutput:
-    ItemNeeded: {fileID: 8384901244394430122, guid: 8dd2040f83caf754b9bee265249b3f33, type: 3}
+    ItemNeeded: RottenBerries
     Amount: 3
   Output:
-    ItemNeeded: {fileID: 6145425212028007168, guid: e976dc99b5ca1b741a63d39fefe409b3, type: 3}
+    ItemNeeded: BerryJuice
     Amount: 1
   FailureOutput:
-    ItemNeeded: {fileID: 8384901244394430122, guid: 8dd2040f83caf754b9bee265249b3f33, type: 3}
+    ItemNeeded: RottenBerries
     Amount: 1
   MinimalTime: 15
   MaximalTime: 45

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ISaveable
 {
     public event Action onPlayerMove;
 
@@ -116,4 +116,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public object CaptureState()
+    {
+        return new PlayerSaveData
+        {
+            HexName = transform.parent.name,
+            Stats = stats
+        };
+    }
+
+    public void   RestoreState(object state)
+    {
+        var data = (PlayerSaveData) state;
+        transform.SetParent(GameObject.Find(data.HexName).transform, false);
+        stats = data.Stats;
+    }
+    [Serializable]
+    public struct PlayerSaveData
+    {
+        public  string      HexName;
+        public PlayerStats  Stats;
+    }
 }

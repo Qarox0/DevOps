@@ -5,6 +5,11 @@ using UnityEngine;
 
 public interface IHexable
 {
+    public string PrefabName
+    {
+        get;
+        set;
+    }
     public HexType FieldType            //Zmienna mówiąca o typu pola
     {
         get;
@@ -26,6 +31,76 @@ public interface IHexable
     public int MovementMultiplier
     {
         get; 
+        set;
+    }
+
+    public int UseCount
+    {
+        get;
+        set;
+    }
+    public int GrowTime
+    {
+        get;
+        set;
+    }
+    public CatchEnum Catched
+    {
+        get;
+        set;
+    }
+    public bool IsCatched
+    {
+        get;
+        set;
+    }
+
+    public RequiredItem BaitInSlot
+    {
+        get;
+        set;
+    }
+
+    public RequiredItem TrapInSlot
+    {
+        get;
+        set;
+    }
+    public int FuelBurningTime
+    {
+        get;
+        set;
+    }
+    public string FuelPrefab
+    {
+        get;
+        set;
+    }
+    public int TimePassed
+    {
+        get;
+        set;
+    }
+
+    public string Recipe
+    {
+        get;
+        set;
+    }
+    public RequiredItem Output
+    {
+        get;
+        set;
+    }
+    public  bool IsCooking  
+    { 
+        get;                        
+        set;
+        
+    }
+    public int FuelAmount
+    {
+        get;
         set;
     }
     public void Interaction(Player player); //Metoda mająca odpowiadać za interakcje

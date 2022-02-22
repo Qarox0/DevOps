@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,7 +69,7 @@ public class CookingManager : MonoBehaviour
         _cookingPanel.SetActive(true);
         if (_actualCampfire.Recipe != null)
         {
-            var item = Instantiate(_actualCampfire.Output.ItemNeeded, _outputSlot.transform);
+            var item = Instantiate(Resources.Load<GameObject>(GlobalConsts.PathToItems +_actualCampfire.Output.ItemNeeded), _outputSlot.transform);
             item.GetComponent<Item>().Quantity = _actualCampfire.Output.Amount;
             if (_actualCampfire.GetFuelPrefab() != null && _actualCampfire.GetFuelPrefab().GetComponent<Item>().Quantity > 1)
             {
@@ -107,10 +108,10 @@ public class CookingManager : MonoBehaviour
             _actualCampfire.SecondSlotItem = recipe.ItemNeeded2;
             _actualCampfire.ThirdSlotItem  = recipe.ItemNeeded3;
             _actualCampfire.FuelAmount     = _fuelSlot.GetComponentInChildren<Item>().Quantity;
-            _actualCampfire.Recipe         = recipe;
+            _actualCampfire.Recipe         = recipe.name;
             _actualCampfire.StartCooking(_fuelSlot.GetComponentInChildren<Item>().gameObject);
             SetCookingVisual(true);
-            var item = Instantiate(recipe.RawOutput.ItemNeeded, _outputSlot.transform);
+            var item = Instantiate(Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.RawOutput.ItemNeeded), _outputSlot.transform);
             item.GetComponent<Item>().Quantity = recipe.RawOutput.Amount;
         }
         foreach (var slot in _cookingSlots)
@@ -175,7 +176,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded1.ItemNeeded                                != null              &&
                              recipe.ItemNeeded1.Amount                                    == slotItem.Quantity &&
-                             recipe.ItemNeeded1.ItemNeeded.GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded1.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
                     {
                         reducedRecpieList.Add(recipe);
                     }
@@ -188,7 +189,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded2.ItemNeeded                                != null              &&
                              recipe.ItemNeeded2.Amount                                    == slotItem.Quantity &&
-                             recipe.ItemNeeded2.ItemNeeded.GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded2.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
                     {
                         reducedRecpieList.Add(recipe);
                     }
@@ -201,7 +202,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded3.ItemNeeded                                != null              &&
                              recipe.ItemNeeded3.Amount                                    == slotItem.Quantity &&
-                             recipe.ItemNeeded3.ItemNeeded.GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded3.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
                     {
                         reducedRecpieList.Add(recipe);
                     }

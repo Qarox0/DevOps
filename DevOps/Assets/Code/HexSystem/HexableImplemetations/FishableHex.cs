@@ -7,8 +7,31 @@ public class FishableHex : MonoBehaviour, IHexable
     [SerializeField] private List<GameObject> _fishesToCatch;
     [SerializeField] private GameObject       _nullHexPrefab;
     [SerializeField] private int              _maxUseCount;
+    [SerializeField] private string           _prefabName = "";
+    
+    #region IHexable Fields
 
-    private int _useCount;
+    //Pola właściwości
+    public string       PrefabName         { get; set; }
+    public HexType      FieldType          { get; set; }
+    public bool         IsLaunchingOnEnter { get; set; }
+    public bool         IsPassable         { get; set; }
+    public int          MovementMultiplier { get; set; }
+    public int          UseCount           { get; set; }
+    public int          GrowTime           { get; set; }
+    public CatchEnum    Catched            { get; set; }
+    public bool         IsCatched          { get; set; }
+    public RequiredItem BaitInSlot         { get; set; }
+    public RequiredItem TrapInSlot         { get; set; }
+    public int          FuelBurningTime    { get; set; }
+    public string       FuelPrefab         { get; set; }
+    public int          TimePassed         { get; set; }
+    public string       Recipe             { get; set; }
+    public RequiredItem Output             { get; set; }
+    public bool         IsCooking          { get; set; }
+    public int          FuelAmount         { get; set; }
+
+    #endregion
     
     // Start is called before the first frame update
     void Start()
@@ -17,6 +40,13 @@ public class FishableHex : MonoBehaviour, IHexable
         IsLaunchingOnEnter = false;
         IsPassable         = false;
         MovementMultiplier = 0;
+        UseCount           = 0;
+        GrowTime           = 0;
+        Catched            = default(CatchEnum);
+        IsCatched          = false;
+        BaitInSlot         = default(RequiredItem);
+        TrapInSlot         = default(RequiredItem);
+        PrefabName         = _prefabName;
     }
 
     // Update is called once per frame
@@ -24,23 +54,17 @@ public class FishableHex : MonoBehaviour, IHexable
     {
         
     }
-
-    public HexType FieldType          { get; set; }
-    public bool    IsLaunchingOnEnter { get; set; }
-    public bool    IsPassable         { get; set; }
-    public int     MovementMultiplier { get; set; }
-
     public void    Interaction(Player player)
     {
         var fishCaught = Random.Range(0, _fishesToCatch.Count - 1);
         Inventory.GetInventoryInstance().AddItemToInventory(_fishesToCatch[fishCaught]);
-        _useCount++;
+        UseCount++;
         Depleted();
     }
 
     public void    Depleted()
     {
-        if (_useCount >= _maxUseCount)
+        if (UseCount >= _maxUseCount)
         {
             Instantiate(_nullHexPrefab, transform.parent);
             Destroy(gameObject);
