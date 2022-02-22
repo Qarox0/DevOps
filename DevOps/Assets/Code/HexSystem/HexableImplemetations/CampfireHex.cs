@@ -36,7 +36,7 @@ public class CampfireHex : MonoBehaviour, IHexable
     private void SetFuel(GameObject fuel)
     {
         if (fuel != null)
-            FuelPrefab = PrefabUtility.GetCorrespondingObjectFromSource(fuel).name;
+            FuelPrefab = fuel.GetComponent<Item>().PrefabName;
     }
     void Start()
     {

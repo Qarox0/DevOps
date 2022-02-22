@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: DebugAnswer
   m_EditorClassIdentifier: 
   ResultName: DebugResult
-  AnswerDescription: This is debug Answer
+  AnswerDescription: Debug_Answer_0
+  Params: 

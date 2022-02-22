@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580e8ec01649fff459c9b0333f4d56da, type: 3}
   m_Name: StartEvent
   m_EditorClassIdentifier: 
-  _eventName: Your journey
-  _eventDescription: Your journey starts on this lone planet, do you overcome her
-    raw climat and your weaknesses to build your own future?
+  _eventName: Start_Event_Title
+  _eventDescription: Start_Event_Description
   _answerList:
-  - NoResultAnswer
+  - ChainAnswer
   _eventSprite: {fileID: 21300000, guid: b064a334afa0e68408580ba3371144c7, type: 3}
