@@ -22,7 +22,7 @@ public class SlotScript : MonoBehaviour, IDropHandler
     {
         var objectOnSlot  = GetComponentInChildren<Item>();
         var droppedObject = eventData.pointerDrag;
-        if (objectOnSlot != null && droppedObject != null)
+        if (objectOnSlot != null && droppedObject != null && objectOnSlot.PrefabName == droppedObject.GetComponent<Item>().PrefabName)
         {
             droppedObject.GetComponent<Item>().IsOnItem = true;
             droppedObject.GetComponent<Item>().IsDroppedOnSlot = true;
