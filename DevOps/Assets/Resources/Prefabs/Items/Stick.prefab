@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 10
   _maxStackQuantity: 64
-  _name: Stick
+  _name: Stick_Item_Name
+  _decription: Stick_Item_Description
   _type: 0
   _fuelValue: 150
   _durability: 1

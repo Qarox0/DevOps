@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 10
   _maxStackQuantity: 1
-  _name: Axe
+  _name: Axe_Item_Name
+  _decription: Axe_Item_Description
   _type: 1
   _fuelValue: 0
   _durability: 1

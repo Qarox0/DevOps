@@ -92,7 +92,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 10
   _maxStackQuantity: 64
-  _name: Fried Fish
+  _name: FriedFish_Item_Name
+  _decription: FriedFish_Item_Description
   _type: 2
   _fuelValue: 0
   _durability: 1

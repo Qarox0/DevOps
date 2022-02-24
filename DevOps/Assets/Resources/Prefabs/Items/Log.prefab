@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 10
   _maxStackQuantity: 64
-  _name: Log
+  _name: Log_Item_Name
+  _decription: Log_Item_Description
   _type: 0
   _fuelValue: 15
   _durability: 1

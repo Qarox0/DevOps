@@ -6,6 +6,7 @@ using Code.Utils;
 using ICSharpCode.NRefactory.Ast;
 using TMPro;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class TranslationUtils: Editor
@@ -16,13 +17,18 @@ public class TranslationUtils: Editor
         #region GatheringKeys
 
         List<string> TranslationKeys = new List<string>();
-        foreach (var translatable in FindObjectsOfType<Translatable>())
+        foreach (var sceneGUID in AssetDatabase.FindAssets("t:Scene", new string[] {"Assets"}))
         {
-            var temp = translatable.gameObject.GetComponent<TMP_Text>();
-            if(temp != null)
-                TranslationKeys.Add(temp.text);
+            var scenePath = AssetDatabase.GUIDToAssetPath(sceneGUID);
+            EditorSceneManager.OpenScene(scenePath);
+            
+            foreach (var translatable in FindObjectsOfType<Translatable>(true))
+            {
+                var temp = translatable.gameObject.GetComponent<TMP_Text>();
+                if (temp != null)
+                    TranslationKeys.Add(temp.text);
+            }
         }
-
         EventObject[] events = Resources.LoadAll<EventObject>(GlobalConsts.PathToEvents);
         foreach (var _event in events)
         {
@@ -35,14 +41,25 @@ public class TranslationUtils: Editor
         {
             TranslationKeys.Add(answer.AnswerDescription);
         }
+        GameObject[] gameObjects = Resources.LoadAll<GameObject>(GlobalConsts.PathToItems);
+        foreach (var gameObject in gameObjects)
+        {
+            var item = gameObject.GetComponent<Item>();
+            if(item != null)
+            {
+                TranslationKeys.Add(item._name);
+                TranslationKeys.Add(item._decription);
+            }
+        }
 
         #endregion
 
         #region Saving To XML
 
-        XmlDocument document = new XmlDocument();
-        XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", "UTF-8",null);
-        XmlElement root               = document.DocumentElement;
+        int            i           = 0;
+        XmlDocument    document    = new XmlDocument();
+        XmlDeclaration declaration = document.CreateXmlDeclaration("1.0", "UTF-8", null);
+        XmlElement     root        = document.DocumentElement;
         document.InsertBefore(declaration, root);
         XmlElement translationElement = document.CreateElement("Translation");
         document.AppendChild(translationElement);
@@ -53,10 +70,26 @@ public class TranslationUtils: Editor
             translationPair.SetAttribute("Key", key);
             translationPair.SetAttribute("Value", "T");
             translationElement.AppendChild(translationPair);
-
+            i++;
         }
         document.Save(GlobalConsts.PathToSaves+"XX_xx.xml");
+        Debug.Log($"Generated {i} keys");
         #endregion
+
+    }
+
+    [MenuItem("Translation Tools/Generate Translatable Component")]
+    public static void AddTranslateableIfDontExits()
+    {
+        foreach (var o in FindObjectsOfType(typeof(TMP_Text),true))
+        {
+            Debug.Log("Found");
+            var text = (TMP_Text) o;
+            if (text != null && text.gameObject.GetComponent<Untranslatable>() == null && text.gameObject.GetComponent<Translatable>() == null)
+            {
+                text.gameObject.AddComponent<Translatable>();
+            }
+        }
 
     }
 }

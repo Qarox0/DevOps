@@ -171,7 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 10
   _maxStackQuantity: 64
-  _name: Plank
+  _name: Plank_Item_Name
+  _decription: Plank_Item_Description
   _type: 0
   _fuelValue: 5
   _durability: 1
