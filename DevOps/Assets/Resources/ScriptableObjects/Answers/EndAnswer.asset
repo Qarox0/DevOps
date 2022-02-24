@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EndAnswer
   m_EditorClassIdentifier: 
   ResultName: EmptyResult
-  AnswerDescription: Yes
+  AnswerDescription: Yes_Empty_Result
   Params: 

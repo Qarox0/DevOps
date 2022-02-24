@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580e8ec01649fff459c9b0333f4d56da, type: 3}
   m_Name: WelcomeEvent
   m_EditorClassIdentifier: 
-  _eventName: Welcome!
-  _eventDescription: "Witaj na starcie swojej podr\xF3\u017Cy, jako pierwszy krok
-    zalecamy stworzenie toporka (3x patyki, 2x Lina, 1x Kamie\u0144) i wybudowanie
-    ogniska, mi\u0142ej zabawy :)"
+  _eventName: Welcome_Event_Title
+  _eventDescription: Welcome_Event_Description
   _answerList:
   - EndAnswer
   _eventSprite: {fileID: 21300000, guid: 01dc858a8261ec14e970368ac985d943, type: 3}

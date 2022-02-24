@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Translation Lang="XX_xx">
+  <Pair Key="Main_Menu_New_Game" Value="Nowa Gra" />
+  <Pair Key="Main_Menu_Exit" Value="Wyjście" />
+  <Pair Key="Debug_Event_Title" Value="Wydarzenie Debugowe" />
+  <Pair Key="Debug_Event_Description" Value="To jest debugowe wydarzenie, jeśli widzisz je w produkcji to znaczy że ktoś coś zjebał, daj znać co i jak :)" />
+  <Pair Key="Start_Event_Title" Value="Witaj Przygodo!" />
+  <Pair Key="Start_Event_Description" Value="Witaj na planecie Kepler-112, jesteś zagubionym ocalałym, postaraj się przeżyć jak najdłużej i zrealizować cel fabuły głównej" />
+  <Pair Key="Welcome_Event_Title" Value="T" />
+  <Pair Key="Welcome_Event_Description" Value="Witaj, jestem tymczasowym tutorialem, postaraj się przeżyć jak najdłużej, żeby to zrobić zacznij od stworzenia siekierki" />
+  <Pair Key="Yes_Chain_Result" Value="Okej" />
+  <Pair Key="Debug_Answer_0" Value="Okej" />
+  <Pair Key="Yes_Empty_Result" Value="Okej" />
+  <Pair Key="Axe_Item_Name" Value="Siekiera" />
+  <Pair Key="Axe_Item_Description" Value="Standardowe wyposażenie drwala &lt;color=&quot;red&quot;&gt;Zabójcza&lt;/color&gt;" />
+  <Pair Key="Berries_Item_Name" Value="Jagody" />
+  <Pair Key="Berries_Item_Description" Value="Pyszne jagody, ale lepiej ich nie jeść surowych, kto wie jaki galaktyczny stwór na nie srał" />
+  <Pair Key="BerryJuice_Item_Name" Value="Sok z jagód" />
+  <Pair Key="BerryJuice_Item_Description" Value="Soczek z &lt;color=&quot;purple&quot;&gt;gumijagód&lt;/color&gt;" />
+  <Pair Key="RawFish_Item_Name" Value="Surowa Ryba" />
+  <Pair Key="RawFish_Item_Description" Value="Ryby z obcej planety to kiepski pomysł na sushi, chociaż..." />
+  <Pair Key="FisihingRod_Item_Name" Value="Wędka" />
+  <Pair Key="FishingRod_Item_Description" Value="Symulator rybaka" />
+  <Pair Key="FriedFish_Item_Name" Value="Pieczona ryba" />
+  <Pair Key="FriedFish_Item_Description" Value="Fishu płakał jak sprzedawał" />
+  <Pair Key="Hammer_Item_Name" Value="Młot" />
+  <Pair Key="Hammer_Item_Description" Value="Idealne narzędzie stolarza" />
+  <Pair Key="Log_Item_Name" Value="Kłoda" />
+  <Pair Key="Log_Item_Description" Value="Kawałek drzewa" />
+  <Pair Key="Pickaxe_Item_Name" Value="Kilof" />
+  <Pair Key="Pickaxe_Item_Description" Value="Nie pierdolnij się" />
+  <Pair Key="Plank_Item_Name" Value="Deska" />
+  <Pair Key="Plank_Item_Description" Value="Typowe gimnazjum" />
+  <Pair Key="Rope_Item_Name" Value="Lina" />
+  <Pair Key="Rope_Item_Description" Value="Jakby świat był za trudny" />
+  <Pair Key="RottenBerries_Item_Name" Value="Zgniłe Jagody" />
+  <Pair Key="RottenBerries_Item_Description" Value="T" />
+  <Pair Key="SimpleTrap_Item_Name" Value="Prosta Pułapka" />
+  <Pair Key="SimpleTrap_Item_Description" Value="Ciekawe co na to gówno wychaczysz" />
+  <Pair Key="Stick_Item_Name" Value="Patyk" />
+  <Pair Key="Stick_Item_Description" Value="Kijek, możesz go sobie wsadzić w..." />
+  <Pair Key="Stone_Item_Name" Value="Kamień" />
+  <Pair Key="Stone_Item_Description" Value="Daj kamienia!" />
+</Translation>

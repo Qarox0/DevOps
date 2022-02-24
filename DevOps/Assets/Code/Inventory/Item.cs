@@ -17,7 +17,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Tooltip("How many will be in stack")]
     [SerializeField] private int      _maxStackQuantity = 64; //Max liczba w slocie
     [Tooltip("Item name")]
-    [SerializeField] private string _name;   //Nazwa
+    [SerializeField] public string _name;   //Nazwa
+    [Tooltip("Item description")]
+    [SerializeField] public string _decription;   //opis
     [Tooltip("Which item type is this item")]
     [SerializeField] private ItemType _type;   //typ itemu
     public                   int   _fuelValue; //wyjątkowe złamanie zasad dobrego kodzenia
