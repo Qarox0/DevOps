@@ -35,3 +35,8 @@ public enum ConfirmationContextEnum
 {
     OVERWRITE,EXIT,NEW_GAME
 }
+
+public enum QualitySettingsNames
+{
+    VERY_LOW,LOW,MEDIUM,HIGH,VERY_HIGH, ULTRA
+}

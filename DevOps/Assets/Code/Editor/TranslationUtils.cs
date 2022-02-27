@@ -52,6 +52,19 @@ public class TranslationUtils: Editor
             }
         }
 
+        foreach (var quality in MenuManager.LIST_OF_QUALITIES)
+        {
+            TranslationKeys.Add(quality);
+        }
+        foreach (var settings in MenuManager.LIST_OF_FULLSCREEN_OPTIONS)
+        {
+            TranslationKeys.Add(settings);
+        }
+        foreach (var lang in MenuManager.LIST_OF_LANGUAGES_OPTIONS)
+        {
+            TranslationKeys.Add(lang);
+        }
+
         #endregion
 
         #region Saving To XML
