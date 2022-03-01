@@ -34,6 +34,7 @@ public class GameMenuController : MonoBehaviour
     [SerializeField] private TMP_Text       _saveMenuTitleText;
     [SerializeField] private TMP_Text       _saveNamePlaceholderText;
     [SerializeField] private GameObject     _saveLoadPrefab;
+    [SerializeField] private GameObject     _blocker;
     #endregion
 
     private string fileName;
@@ -130,11 +131,13 @@ public class GameMenuController : MonoBehaviour
     private void OpenMenu()
     {
         _menuPanel.SetActive(true);
+        _blocker.SetActive(true);
     }
 
     private void CloseMenu()
     {
         _menuPanel.SetActive(false);
+        _blocker.SetActive(false);
     }
 
     private void ExitGame()
