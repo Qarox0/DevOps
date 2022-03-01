@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Xml.Serialization;
 using Code.Utils;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,13 +39,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TMP_Text            _resolutionPlaceholder;    
     [SerializeField] private TMP_Text            _langPlaceholder;    
     [SerializeField] private TMP_Text            _screenPlaceholder;    
-    [SerializeField] private GameObject          _settingsPanel;    
-    [SerializeField] private RenderPipelineAsset _veryLowRenderPipelineAsset;
-    [SerializeField] private RenderPipelineAsset _lowRenderPipelineAsset;
-    [SerializeField] private RenderPipelineAsset _mediumRenderPipelineAsset;
-    [SerializeField] private RenderPipelineAsset _highRenderPipelineAsset;
-    [SerializeField] private RenderPipelineAsset _veryHighRenderPipelineAsset;
-    [SerializeField] private RenderPipelineAsset _ultraRenderPipelineAsset;
+    [SerializeField] private GameObject          _settingsPanel;
+    [SerializeField] private Slider              _sfxVolumeSlider;
+    [SerializeField] private Slider              _musicVolumeSlider;
+    [SerializeField] private AudioMixer          _mixer;
+    [SerializeField] private TMP_InputField      _reportBugInputField;
+    [SerializeField] private Button              _reportBugButton;
     
     private                  int                 _qualityIterator    = 2;
     private                  int                 _resolutionIterator = 8;
@@ -69,8 +73,8 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GraphicsSettings.defaultRenderPipeline = _mediumRenderPipelineAsset;
-        QualitySettings.renderPipeline         = _mediumRenderPipelineAsset;
+        //GraphicsSettings.defaultRenderPipeline = _mediumRenderPipelineAsset;
+        //QualitySettings.renderPipeline         = _mediumRenderPipelineAsset;
         LoadSettings();
         UpdatePlaceholders();
         #region Button Bindings
@@ -133,6 +137,15 @@ public class MenuManager : MonoBehaviour
                         LIST_OF_FULLSCREEN_OPTIONS.Length - 1);
             UpdatePlaceholders();
         });
+        _musicVolumeSlider.onValueChanged.AddListener(delegate(float value)
+        {
+            _mixer.SetFloat(GlobalConsts.MixerMusicProperyName, Mathf.Log10(value) * 20);
+        });
+        _sfxVolumeSlider.onValueChanged.AddListener(delegate(float value)
+        {
+            _mixer.SetFloat(GlobalConsts.MixerSFXProperyName, Mathf.Log10(value) * 20);
+        });
+        _reportBugButton.onClick.AddListener(()=>SendBugEmail());
         _settingsApplyButton.onClick.AddListener(ApplySetting);
         #endregion
     }
@@ -144,11 +157,12 @@ public class MenuManager : MonoBehaviour
             using var     stream     = File.Open(GlobalConsts.PathToSettings, FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(SettingsSaveData));
             var loadData = (SettingsSaveData) serializer.Deserialize(stream);
-            _qualityIterator    = loadData.QualityIterator;
-            _resolutionIterator = loadData.ResolutionIterator;
-            _langIterator       = loadData.LangIterator;
-            _screenIterator     = loadData.ScreenIterator;
-            
+            _qualityIterator         = loadData.QualityIterator;
+            _resolutionIterator      = loadData.ResolutionIterator;
+            _langIterator            = loadData.LangIterator;
+            _screenIterator          = loadData.ScreenIterator;
+            _sfxVolumeSlider.value   = loadData.SFXVolume;
+            _musicVolumeSlider.value = loadData.MusicVolume;
         }
         ApplySetting();
     }
@@ -175,7 +189,7 @@ public class MenuManager : MonoBehaviour
     {
         switch (_qualityIterator)
         {
-            case 0:
+            /*case 0:
                 QualitySettings.renderPipeline = _veryLowRenderPipelineAsset;
                 break;
             case 1:
@@ -192,7 +206,7 @@ public class MenuManager : MonoBehaviour
                 break;
             case 5:
                 QualitySettings.renderPipeline = _ultraRenderPipelineAsset;
-                break;
+                break;*/
         }
         LanguageManager.GetInstance().SetLang(_langIterator);
         FullScreenMode screenMode;
@@ -226,11 +240,47 @@ public class MenuManager : MonoBehaviour
             QualityIterator = _qualityIterator,
             LangIterator =  _langIterator,
             ScreenIterator = _screenIterator,
-            ResolutionIterator = _resolutionIterator
+            ResolutionIterator = _resolutionIterator,
+            MusicVolume = _musicVolumeSlider.value,
+            SFXVolume =  _sfxVolumeSlider.value
         };
         using var     stream     = File.Open(GlobalConsts.PathToSettings, FileMode.Create);
         XmlSerializer serializer = new XmlSerializer(typeof(SettingsSaveData));
         serializer.Serialize(stream, saveData);
+    }
+
+    private void SendBugEmail()
+    {
+        try
+        {
+            SmtpClient client = new SmtpClient(GlobalConsts.EmailHost, GlobalConsts.EmailPort);
+            client.Credentials = new NetworkCredential(GlobalConsts.EmailUser, GlobalConsts.EmailPassword);
+            client.EnableSsl   = true;
+            MailAddress from    = new MailAddress(GlobalConsts.EmailUser, GlobalConsts.EmailName, Encoding.UTF8);
+            MailAddress to      = new MailAddress(GlobalConsts.EmailDest);
+            MailMessage message = new MailMessage(from, to);
+            message.Body            =  _reportBugInputField.text;
+            message.BodyEncoding    =  Encoding.UTF8;
+            var guidG = Guid.NewGuid().ToString();
+            message.Subject         =  $"Bug Report #{guidG}";
+            message.SubjectEncoding =  Encoding.UTF8;
+            client.SendCompleted    += new SendCompletedEventHandler(SendCompletedCallback);
+            string userState = "test message1";
+            client.SendAsync(message, userState);
+        }
+        catch (Exception ep)
+        {
+            Debug.LogError(ep);
+        }
+    }
+    private static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
+    {
+        // Get the unique identifier for this asynchronous operation.
+        string token = (string)e.UserState;
+        if (e.Error != null)
+        {
+            Debug.LogError("[ " +token +" ] " + " " + e.Error.ToString());
+        }
     }
     [Serializable][XmlRoot("Settings")]
     public struct SettingsSaveData
@@ -243,5 +293,9 @@ public class MenuManager : MonoBehaviour
         public int ScreenIterator;
         [XmlElement(ElementName = "Resolution")]
         public int ResolutionIterator;
+        [XmlElement(ElementName = "SFX Volume")]
+        public float SFXVolume;
+        [XmlElement(ElementName = "Music Volume")]
+        public float MusicVolume;
     }
 }
