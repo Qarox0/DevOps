@@ -12,11 +12,11 @@ public class Player : MonoBehaviour, ISaveable
 
     public PlayerStats stats;
     
-    [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
-    [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject _blocker;  //uchwyt do ui inv
-    [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
+    [SerializeField] private GameObject  _inventoryHandle; //uchwyt do ui inv
+    [SerializeField] private GameObject  _craftingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject  _buildingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject  _blocker;         //uchwyt do ui inv
+    [SerializeField] private int         _timeTakenToMove; //Czas potrzebny na przejscie pola
 
     private void Start()
     {

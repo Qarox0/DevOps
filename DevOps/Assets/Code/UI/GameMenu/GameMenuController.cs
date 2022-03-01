@@ -5,6 +5,7 @@ using System.IO;
 using Code.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameMenuController : MonoBehaviour
@@ -35,6 +36,7 @@ public class GameMenuController : MonoBehaviour
     [SerializeField] private TMP_Text       _saveNamePlaceholderText;
     [SerializeField] private GameObject     _saveLoadPrefab;
     [SerializeField] private GameObject     _blocker;
+    [SerializeField] private PlayerInput    _input;
     #endregion
 
     private string fileName;
@@ -56,6 +58,8 @@ public class GameMenuController : MonoBehaviour
         _loadGameButton.onClick.AddListener(LoadGame);
         _saveGameButton.onClick.AddListener(SaveGame);
         #endregion
+
+        if (_input == null) _input = FindObjectOfType<PlayerInput>();
     }
 
     #region Button Methods
@@ -132,12 +136,15 @@ public class GameMenuController : MonoBehaviour
     {
         _menuPanel.SetActive(true);
         _blocker.SetActive(true);
+        _input.actions.Disable();
+        
     }
 
     private void CloseMenu()
     {
         _menuPanel.SetActive(false);
         _blocker.SetActive(false);
+        _input.actions.Enable();
     }
 
     private void ExitGame()

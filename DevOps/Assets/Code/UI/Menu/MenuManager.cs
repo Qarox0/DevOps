@@ -13,6 +13,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -25,26 +26,34 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button              _exitButton;
     [Space] [Header("Settings Tab")]
     [SerializeField] private Button              _settingsButton;
-    [SerializeField] private Button              _settingsCloseButton;
-    [SerializeField] private Button              _settingsApplyButton;
-    [SerializeField] private Button              _qualityUpButton;    
-    [SerializeField] private Button              _qualityDownButton;     
-    [SerializeField] private Button              _resolutionUpButton;    
-    [SerializeField] private Button              _resolutionDownButton;      
-    [SerializeField] private Button              _langUpButton;    
-    [SerializeField] private Button              _langDownButton;        
-    [SerializeField] private Button              _screenUpButton;    
-    [SerializeField] private Button              _screenDownButton;    
-    [SerializeField] private TMP_Text            _qualityPlaceholder;    
-    [SerializeField] private TMP_Text            _resolutionPlaceholder;    
-    [SerializeField] private TMP_Text            _langPlaceholder;    
-    [SerializeField] private TMP_Text            _screenPlaceholder;    
-    [SerializeField] private GameObject          _settingsPanel;
-    [SerializeField] private Slider              _sfxVolumeSlider;
-    [SerializeField] private Slider              _musicVolumeSlider;
-    [SerializeField] private AudioMixer          _mixer;
-    [SerializeField] private TMP_InputField      _reportBugInputField;
-    [SerializeField] private Button              _reportBugButton;
+    [SerializeField] private Button                       _settingsCloseButton;
+    [SerializeField] private Button                       _settingsApplyButton;
+    [SerializeField] private Button                       _qualityUpButton;    
+    [SerializeField] private Button                       _qualityDownButton;     
+    [SerializeField] private Button                       _resolutionUpButton;    
+    [SerializeField] private Button                       _resolutionDownButton;      
+    [SerializeField] private Button                       _langUpButton;    
+    [SerializeField] private Button                       _langDownButton;        
+    [SerializeField] private Button                       _screenUpButton;    
+    [SerializeField] private Button                       _screenDownButton;    
+    [SerializeField] private TMP_Text                     _qualityPlaceholder;    
+    [SerializeField] private TMP_Text                     _resolutionPlaceholder;    
+    [SerializeField] private TMP_Text                     _langPlaceholder;    
+    [SerializeField] private TMP_Text                     _screenPlaceholder;    
+    [SerializeField] private GameObject                   _settingsPanel;
+    [SerializeField] private Slider                       _sfxVolumeSlider;
+    [SerializeField] private Slider                       _musicVolumeSlider;
+    [SerializeField] private AudioMixer                   _mixer;
+    [SerializeField] private TMP_InputField               _reportBugInputField;
+    [SerializeField] private Button                       _reportBugButton;
+    [Space][Header("Quality")]
+    [SerializeField] private UniversalRenderPipelineAsset _veryLowURP;
+    [SerializeField] private UniversalRenderPipelineAsset _lowURP;
+    [SerializeField] private UniversalRenderPipelineAsset _mediumURP;
+    [SerializeField] private UniversalRenderPipelineAsset _highURP;
+    [SerializeField] private UniversalRenderPipelineAsset _veryHighURP;
+    [SerializeField] private UniversalRenderPipelineAsset _ultraURP;
+
     
     private                  int                 _qualityIterator    = 2;
     private                  int                 _resolutionIterator = 8;
@@ -73,8 +82,8 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GraphicsSettings.defaultRenderPipeline = _mediumRenderPipelineAsset;
-        //QualitySettings.renderPipeline         = _mediumRenderPipelineAsset;
+        GraphicsSettings.defaultRenderPipeline = _mediumURP;
+        QualitySettings.renderPipeline         = _mediumURP;
         LoadSettings();
         UpdatePlaceholders();
         #region Button Bindings
@@ -189,24 +198,24 @@ public class MenuManager : MonoBehaviour
     {
         switch (_qualityIterator)
         {
-            /*case 0:
-                QualitySettings.renderPipeline = _veryLowRenderPipelineAsset;
+            case 0:
+                QualitySettings.renderPipeline = _veryLowURP;
                 break;
             case 1:
-                QualitySettings.renderPipeline = _lowRenderPipelineAsset;
+                QualitySettings.renderPipeline = _lowURP;
                 break;
             case 2:
-                QualitySettings.renderPipeline = _mediumRenderPipelineAsset;
+                QualitySettings.renderPipeline = _mediumURP;
                 break;
             case 3:
-                QualitySettings.renderPipeline = _highRenderPipelineAsset;
+                QualitySettings.renderPipeline = _highURP;
                 break;
             case 4:
-                QualitySettings.renderPipeline = _veryHighRenderPipelineAsset;
+                QualitySettings.renderPipeline = _veryHighURP;
                 break;
             case 5:
-                QualitySettings.renderPipeline = _ultraRenderPipelineAsset;
-                break;*/
+                QualitySettings.renderPipeline = _ultraURP;
+                break;
         }
         LanguageManager.GetInstance().SetLang(_langIterator);
         FullScreenMode screenMode;
