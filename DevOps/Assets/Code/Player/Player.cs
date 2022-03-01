@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, ISaveable
     [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
     [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
     [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject _blocker;  //uchwyt do ui inv
     [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
 
     private void Start()
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour, ISaveable
 
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
     {
-        if (value.started)
+        if (value.started && _blocker.activeSelf == false)
         {
             transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
         }
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour, ISaveable
 
     public void Fishing(InputAction.CallbackContext value)
     {
-        if (value.started)
+        if (value.started && _blocker.activeSelf == false)
         {
             var fishingSpot = transform.parent.GetComponent<HexScript>().GetFishingSpot();
             if (fishingSpot != null)
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour, ISaveable
 
     public void MovePlayer(InputAction.CallbackContext value)               //input poruszania się
     {
-        if (value.started)
+        if (value.started && _blocker.activeSelf == false)
         {
             var          mousePosition = Mouse.current.position.ReadValue();
             Vector2      inWorldSpace  = Camera.main.ScreenToWorldPoint(mousePosition);
