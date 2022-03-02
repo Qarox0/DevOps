@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
 public struct CatchEnum
@@ -39,4 +40,24 @@ public enum ConfirmationContextEnum
 public enum QualitySettingsNames
 {
     VERY_LOW,LOW,MEDIUM,HIGH,VERY_HIGH, ULTRA
+}
+
+public enum Biomes
+{
+    GRASSLAND, BEATCH
+}
+public enum Flora
+{
+    NULL, FOREST, MEADOW
+}
+[Serializable]
+public struct GenerateLevelDiversity
+{
+    public Color            MarkColor;
+    [Range(0,1)]
+    public float            MinValue;
+    [Range(0, 1)]
+    public float            MaxValue;
+    public float            ChanceOfObject;
+    public List<GameObject> FloraList;
 }

@@ -66,8 +66,10 @@ public class FishableHex : MonoBehaviour, IHexable
     {
         if (UseCount >= _maxUseCount)
         {
-            Instantiate(_nullHexPrefab, transform.parent);
-            Destroy(gameObject);
+            var parent = transform.parent;
+            var newHex = Instantiate(_nullHexPrefab, parent.parent);
+            newHex.transform.position = parent.position;
+            Destroy(gameObject.transform.parent.gameObject);
         }
     }
 }

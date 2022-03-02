@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c938b1eb844bb94c971d4f90dd02cc7, type: 3}
+  m_Name: GrasslandsDefinition
+  m_EditorClassIdentifier: 
+  TerrainDiversities:
+  - MarkColor: {r: 0.43961373, g: 0.8396226, b: 0.6299892, a: 0}
+    MinValue: 0
+    MaxValue: 0.494
+    ChanceOfObject: 35
+    FloraList:
+    - {fileID: 1354858418965729345, guid: 8309358e5a9444641b5ce4b4cae906b8, type: 3}
+    - {fileID: 1354858418965729345, guid: c73bc9775d1e8ca4fbd3229bcdc4ef5b, type: 3}
+    - {fileID: 5309470483799173157, guid: 362a8b38097ea564c96f774e8208f3e9, type: 3}
+    - {fileID: 1083163227791131439, guid: 1aba6c27ae02fed43a06d1a65c2fc699, type: 3}
+    - {fileID: 6695528416699016586, guid: 59a1a3b80e68257418ed61eee4749005, type: 3}
+    - {fileID: 3694585273996439707, guid: a262fb96f99901d4fad89f7fa391fea7, type: 3}
+  WaterDiversities:
+  - MarkColor: {r: 0.25792095, g: 0.4994313, b: 0.7924528, a: 0}
+    MinValue: 0
+    MaxValue: 0.262
+    ChanceOfObject: 100
+    FloraList:
+    - {fileID: 4046571000144506562, guid: 2bbbf40cd511acc4b9003bcd3d703539, type: 3}
+  BiomeType: 0
+  FloraType: 2
+  DefaultFillPrefab: {fileID: 1354858418965729345, guid: e94dcdc5cd2a9984095d5b9aa5140a68, type: 3}
