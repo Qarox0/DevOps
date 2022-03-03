@@ -69,6 +69,8 @@ public class BuildingManager : MonoBehaviour
                 }
 
                 var builded =Instantiate(fieldSelected.BuildRecipe.Output, standingHex.transform);
+                builded.GetComponent<SpriteRenderer>().sortingOrder =
+                    standingHex.GetComponent<SpriteRenderer>().sortingOrder;
                 standingHex.SetObjectOnField(builded);
             }
         }

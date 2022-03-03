@@ -87,6 +87,7 @@ public class EmptyBerrieBushHex : MonoBehaviour, IHexable
         {
             var newBush = Instantiate(_berriesBushPrefab, transform.parent);
             transform.parent.GetComponent<HexScript>().SetObjectOnField(newBush);
+            newBush.GetComponent<SpriteRenderer>().sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder;
             Destroy(gameObject);
         }
     }

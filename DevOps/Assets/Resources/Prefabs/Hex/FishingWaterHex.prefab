@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fishesToCatch:
   - {fileID: 8384901244394430122, guid: 8841d8018b247c44c87e24eec228b35e, type: 3}
-  _nullHexPrefab: {fileID: 2384004134077744978, guid: 324ef2872d1b1e942b73262253d12ec2, type: 3}
+  _nullHexPrefab: {fileID: 4046571000144506562, guid: 2bbbf40cd511acc4b9003bcd3d703539, type: 3}
   _maxUseCount: 3
   _prefabName: ImpassableHex
 --- !u!1 &4046571000144506562
@@ -101,7 +101,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,7 +122,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ab2b96c98d41a6f4cbe6e51a49d56aea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9af80f8e72baa5444ad9209f46e05e2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

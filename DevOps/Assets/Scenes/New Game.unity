@@ -1257,6 +1257,12 @@ MonoBehaviour:
   _mixer: {fileID: 24100000, guid: 4fb8c914a18331a4192fd3d1f44b9fcf, type: 2}
   _reportBugInputField: {fileID: 702592708}
   _reportBugButton: {fileID: 187082711}
+  _veryLowURP: {fileID: 11400000, guid: 088cf6eb8ccaacc479910d58a3b3d392, type: 2}
+  _lowURP: {fileID: 11400000, guid: f669a970b901efa4e806af9d67454f00, type: 2}
+  _mediumURP: {fileID: 11400000, guid: faf6e80ecd9a7f5449a6c3fc5004b661, type: 2}
+  _highURP: {fileID: 11400000, guid: fe822d57660ee704b84aa559268f0946, type: 2}
+  _veryHighURP: {fileID: 11400000, guid: aec0680459ad49d4ea09596998afca76, type: 2}
+  _ultraURP: {fileID: 11400000, guid: 30362c5abb34af442a3e77e9f9eb8308, type: 2}
 --- !u!4 &400595830
 Transform:
   m_ObjectHideFlags: 0

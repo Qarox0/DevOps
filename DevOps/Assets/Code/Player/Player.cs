@@ -12,15 +12,16 @@ public class Player : MonoBehaviour, ISaveable
 
     public PlayerStats stats;
     
-    [SerializeField] private GameObject _inventoryHandle; //uchwyt do ui inv
-    [SerializeField] private GameObject _craftingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject _buildingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject _blocker;  //uchwyt do ui inv
-    [SerializeField] private int        _timeTakenToMove; //Czas potrzebny na przejscie pola
-
+    [SerializeField] private GameObject     _inventoryHandle; //uchwyt do ui inv
+    [SerializeField] private GameObject     _craftingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject     _buildingHandle;  //uchwyt do ui inv
+    [SerializeField] private GameObject     _blocker;         //uchwyt do ui inv
+    [SerializeField] private int            _timeTakenToMove; //Czas potrzebny na przejscie pola
+    private                  SpriteRenderer _renderer;
     private void Start()
     {
         InitializeStats();
+        _renderer = GetComponent<SpriteRenderer>();
     }
     
 
@@ -69,11 +70,13 @@ public class Player : MonoBehaviour, ISaveable
                     if (objectOnHex != null && objectOnHex.IsPassable)
                     {
                         transform.SetParent(hit.collider.transform, false);
+                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder;
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();
                     }
                     else if (objectOnHex == null)
                     {
+                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder;
                         transform.SetParent(hit.collider.transform, false);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();

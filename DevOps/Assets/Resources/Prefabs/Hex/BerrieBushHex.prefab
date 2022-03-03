@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3111560689163257318}
   - component: {fileID: 5895287393633385290}
   - component: {fileID: 3269597256137085944}
-  - component: {fileID: 1618416453}
   m_Layer: 0
   m_Name: BerrieBushHex
   m_TagString: Hex
@@ -54,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,19 +117,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
   m_Radius: 3.11
---- !u!114 &1618416453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1083163227791131439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036e6be92b6b9334db54df0b030c3862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 66ba3787-f694-4733-b274-ab6da200d31a
 --- !u!1 &7489260369987794340
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +168,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
