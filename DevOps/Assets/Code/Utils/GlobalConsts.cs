@@ -7,6 +7,7 @@ namespace Code.Utils
         //Files
         public const           string PathToItems           = "Prefabs/Items/";
         public const           string PathToRecpies         = "ScriptableObjects/CookingRecipes/";
+        public const           string PathToMapDefinitions  = "ScriptableObjects/MapDefinitions/";
         public const           string PathToHexObjects      = "Prefabs/Objects/";
         public static readonly string PathToSaves           = Application.persistentDataPath + "/Saves/";
         public static readonly string PathToSettings        = Application.persistentDataPath + "/settings.xml";

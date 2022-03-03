@@ -33,23 +33,59 @@ public class MapManager : MonoBehaviour
 
     public static MapManager GetInstance()
     {
-        if (_Instance == null) _Instance = FindObjectOfType<MapManager>(); 
+        if (_Instance == null) _Instance = FindObjectOfType<MapManager>();
         return _Instance;
     }
-    // Start is called before the first frame update
-    void Start()
+    [ContextMenu("test2")]
+    private void test2()
     {
+        Debug.Log(_generateParent.childCount);
+        for (int i = 0; i < _generateParent.childCount; i++)
+        {
+            Debug.Log(i);
+            DestroyImmediate(_generateParent.GetChild(i).gameObject);
+        }
     }
 
+    [ContextMenu("Test")]
+    private void Test()
+    {
+        GameObject          player = new GameObject("PlayerDummy");
+        SpriteRenderer renderer = player.AddComponent<SpriteRenderer>();
+        renderer.sprite = Sprite.Create(_generatedTerrainTexture,new Rect(0,0,_width,_height), new Vector2());
+        MapDefinitionObject map    = Resources.Load<MapDefinitionObject>(GlobalConsts.PathToMapDefinitions + "GrasslandsDefinition");
+        LoadLevelFromCurrentData(player,map);
+    }
+
+    public void ReturnPlayer(GameObject player)
+    {
+        if (_returnPosition != null)
+        {
+            player.transform.SetParent(_returnPosition, false);
+            player.GetComponent<SpriteRenderer>().sortingOrder =
+                _returnPosition.GetComponent<SpriteRenderer>().sortingOrder+1;
+            _returnPosition                                    = null;
+        }
+    }
     public void LoadLevelFromCurrentData(GameObject player, MapDefinitionObject mapDefinition)
     {
-        while (_generateParent.childCount > 0)
+        if (_returnPosition != null)
         {
-            Destroy(_generateParent.GetChild(0));
+            player.transform.SetParent(_returnPosition,false);
+            _returnPosition = null;
+        }
+        for (int i = 0; i < _generateParent.childCount; i++)
+        {
+            Destroy(_generateParent.GetChild(i).gameObject);
         }
         GenerateLevel(mapDefinition);
-        _returnPosition = player.transform.parent;
+        if (_returnPosition == null)
+        {
+            _returnPosition = player.transform.parent;
+        }
         player.transform.SetParent(FindStartingPos(), false);
+        player.GetComponent<SpriteRenderer>().sortingOrder =
+            player.transform.parent.GetComponent<SpriteRenderer>().sortingOrder +1;
     }
     
     private void GenerateLevel(MapDefinitionObject mapDefinition)
@@ -58,10 +94,11 @@ public class MapManager : MonoBehaviour
         GridList     = new GameObject[_width, _height];
         GenerateSeed();
         CalculateOffsetFromSeed();
-        _generatedWaterTexture   = GenerateNoise(_waterScale, mapDefinition.WaterDiversities);
+        _generatedWaterTexture   = GenerateNoise(_waterScale,   mapDefinition.WaterDiversities);
         _generatedTerrainTexture = GenerateNoise(_terrainScale, mapDefinition.TerrainDiversities);
+        _mapDefinition           = mapDefinition;
         var parent = new GameObject("GridHolder");
-        parent.transform.parent = _generateParent;
+        parent.transform.SetParent(_generateParent,false);
         GenerateHexMapFromTexture(parent);
     }
 
@@ -69,38 +106,64 @@ public class MapManager : MonoBehaviour
     {
         bool      found = false;
         Transform pos = null;
-        while (found == false)
+        int i = 0;
+        while (found == false && i < 9999)
         {
+            i++;
             int direction = Random.Range(0, 3); //0- LEFT/1- TOP/2- Right/3- Bottom
             switch (direction)
             {
                 case 0:
                     int y = Random.Range(0, GridList.GetLength(1)-1);
-                    if (GridList[0, y].GetComponentInChildren<IHexable>().IsPassable)
-                        pos= GridList[0, y].transform;
-                    found = true;
+                    if (GridList[0, y].GetComponentInChildren<IHexable>() == null ||
+                        GridList[0, y].GetComponentInChildren<IHexable>() != null &&
+                        GridList[0, y].GetComponentInChildren<IHexable>().IsPassable)
+                    {
+                        pos   = GridList[0, y].transform;
+                        found = true;
+                    }
+
                     break;
                 case 1:
                     int x = Random.Range(0, GridList.GetLength(0) -1);
-                    if (GridList[x, 0].GetComponentInChildren<IHexable>().IsPassable)
-                        pos = GridList[0, x].transform;
-                    found = true;
+                    if (GridList[x, 0].GetComponentInChildren<IHexable>() == null ||
+                        GridList[x, 0].GetComponentInChildren<IHexable>() != null &&
+                        GridList[x, 0].GetComponentInChildren<IHexable>().IsPassable)
+                    {
+                        pos   = GridList[0, x].transform;
+                        found = true;
+                    }
+
                     break;
                 case 2:
                     int ye = Random.Range(0, GridList.GetLength(1) -1);
-                    if (GridList[GridList.GetLength(0)        -1, ye].GetComponentInChildren<IHexable>().IsPassable)
-                        pos = GridList[GridList.GetLength(0) -1, ye].transform;
-                    found = true;
+                    if (GridList[GridList.GetLength(0) - 1, ye].GetComponentInChildren<IHexable>() == null ||
+                        GridList[GridList.GetLength(0) - 1, ye].GetComponentInChildren<IHexable>() != null &&
+                        GridList[GridList.GetLength(0) - 1, ye].GetComponentInChildren<IHexable>().IsPassable)
+                    {
+                        pos   = GridList[GridList.GetLength(0) - 1, ye].transform;
+                        found = true;
+                    }
+
                     break;
                 case 3:
                     int xe = Random.Range(0, GridList.GetLength(0) -1);
-                    if (GridList[xe, GridList.GetLength(1) -1].GetComponentInChildren<IHexable>().IsPassable)
-                        pos = GridList[xe, GridList.GetLength(1) -1].transform;
-                    found = true;
+                    if (GridList[xe, GridList.GetLength(1) - 1].GetComponentInChildren<IHexable>() == null ||
+                        GridList[xe, GridList.GetLength(1) - 1].GetComponentInChildren<IHexable>() != null &&
+                        GridList[xe, GridList.GetLength(1) - 1].GetComponentInChildren<IHexable>().IsPassable)
+                    {
+                        pos   = GridList[xe, GridList.GetLength(1) - 1].transform;
+                        found = true;
+                    }
+
                     break;
             }
         }
 
+        if (i == 9999)
+        {
+            throw new Exception("Infinite loop exception");
+        }
         return pos;
     }
     private Texture2D GenerateNoise(float scale, List<GenerateLevelDiversity> diversities)
@@ -191,7 +254,6 @@ public class MapManager : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                
                 SpawnFromDiversity(_generatedWaterTexture,   _mapDefinition.WaterDiversities,   x, y, parent);
                 SpawnFromDiversity(_generatedTerrainTexture, _mapDefinition.TerrainDiversities, x, y, parent);
                 if (GridFillList[x, y] == false)
@@ -205,10 +267,11 @@ public class MapManager : MonoBehaviour
 
     private void SpawnEmpty(GameObject nullPrefab, int x, int y, GameObject parent)
     {
-        var child         = Instantiate(nullPrefab, positionFromCoords(x, y), new Quaternion());
+        var child         = Instantiate(nullPrefab, (Vector3)positionFromCoords(x, y)+parent.transform.position, new Quaternion());
         child.transform.SetParent(parent.transform, true);
         child.name                                        = $"{nullPrefab.name}({x},{y})";
         child.GetComponent<SpriteRenderer>().sortingOrder = y - 1;
+        GridList[x, y]                                    = child;
     }
     private void SpawnFromDiversity(Texture2D texture, List<GenerateLevelDiversity> diversities, int x, int y, GameObject parent)
     {
@@ -222,7 +285,7 @@ public class MapManager : MonoBehaviour
                     Math.Abs(texture.GetPixel(x, y).b - diversity.MarkColor.b) < _tolerance)
                 {
                     var objectToSpawn = diversity.FloraList[Random.Range(0, diversity.FloraList.Count)];
-                    var child         = Instantiate(objectToSpawn, positionFromCoords(x, y), new Quaternion());
+                    var child         = Instantiate(objectToSpawn, (Vector3)positionFromCoords(x, y)+parent.transform.position, new Quaternion());
                     child.transform.SetParent(parent.transform, true);
                     child.name         = $"{objectToSpawn.name}({x},{y})";
                     GridFillList[x, y] = true;
@@ -230,7 +293,8 @@ public class MapManager : MonoBehaviour
                     if (child.transform.childCount                                 > 0 &&
                         child.transform.GetChild(0).GetComponent<SpriteRenderer>() != null)
                         child.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = y;
-                    child.GetComponent<SpriteRenderer>().sortingOrder = y - 1;
+                    if (child.GetComponent<SpriteRenderer>() != null)
+                        child.GetComponent<SpriteRenderer>().sortingOrder = y - 1;
                 }
             }
         }
