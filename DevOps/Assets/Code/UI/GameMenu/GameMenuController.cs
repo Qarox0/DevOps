@@ -85,13 +85,19 @@ public class GameMenuController : MonoBehaviour
 
     private void StartAdventure()
     {
-        _onAdventure = true;
-        ScreenOff();
+        if (!_onAdventure)
+        {
+            _onAdventure = true;
+            ScreenOff();
+        }
     }
     private void ReturnAdventure()
     {
-        _onAdventure = true;
-        ScreenOffR();
+        if (_onAdventure)
+        {
+            _onAdventure = false;
+            ScreenOffR();
+        }
     }
     //Debug
     private void ScreenOff()

@@ -5,8 +5,8 @@ using UnityEngine;
 public class DebugEdible : MonoBehaviour, IEdible
 {
     
-    public void Eat(Item item)
+    public void Eat(string _params, Item item)
     {
-        Debug.Log($"yummy: {item}");
+        Debug.Log($"yummy: {_params}");
     }
 }

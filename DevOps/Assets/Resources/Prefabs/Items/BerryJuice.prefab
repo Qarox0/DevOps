@@ -99,7 +99,8 @@ MonoBehaviour:
   _durability: 1
   _text: {fileID: 5663076792269206437}
   _isEdible: 1
-  _edibleImplementation: {fileID: 6536395825546586510, guid: bc86f5a3ff1a13f4e98de861285d71c3, type: 3}
+  _edibleParams: 'Hunger: 2, Thirst: 15'
+  _edibleImplementation: {fileID: -3575433200535018840, guid: 46379d3419a23284abd3e68336a2c4b1, type: 3}
   _catchDictionary: []
   _catchMultiplier: 0
   PrefabName: BerryJuice

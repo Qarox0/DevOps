@@ -28,7 +28,11 @@ public class Player : MonoBehaviour, ISaveable
     private void InitializeStats()
     {
         stats              = new PlayerStats();
+        stats.Hunger       = 100;
+        stats.Thirsty      = 100;
         stats.ActualHealth = stats.Health = 100;
+        stats.MaxHunger    = 100;
+        stats.MaxThirst    = 100;
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
         stats.FatalRisk    = 1;
@@ -70,13 +74,13 @@ public class Player : MonoBehaviour, ISaveable
                     if (objectOnHex != null && objectOnHex.IsPassable)
                     {
                         transform.SetParent(hit.collider.transform, false);
-                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder;
+                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder+1;
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();
                     }
                     else if (objectOnHex == null)
                     {
-                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder;
+                        _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder+1;
                         transform.SetParent(hit.collider.transform, false);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();

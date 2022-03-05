@@ -13,6 +13,9 @@ public class PlayerStats
     private float _torsoDamage;
 
     private float _hunger;
+    
+    public float MaxHunger { get; set; }
+    public float MaxThirst { get; set; }
 
     private float _thirsty;
     public float TorsoDamage
@@ -47,13 +50,13 @@ public class PlayerStats
     public float Thirsty
     {
         get => _thirsty;
-        set => _thirsty = Mathf.Clamp(value, 0, 100);
+        set => _thirsty = Mathf.Clamp(value, 0, MaxThirst);
     }
 
     public float Hunger
     {
         get => _hunger;
-        set => _hunger = Mathf.Clamp(value, 0, 100);
+        set => _hunger = Mathf.Clamp(value, 0, MaxHunger);
     }
 
     

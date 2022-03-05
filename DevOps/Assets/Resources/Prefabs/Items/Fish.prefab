@@ -177,8 +177,9 @@ MonoBehaviour:
   _fuelValue: 0
   _durability: 1
   _text: {fileID: 8035128431471631887}
-  _isEdible: 0
-  _edibleImplementation: {fileID: 0}
+  _isEdible: 1
+  _edibleParams: 'Hunger: -5, Thirs: -15'
+  _edibleImplementation: {fileID: -3575433200535018840, guid: 46379d3419a23284abd3e68336a2c4b1, type: 3}
   _catchDictionary: []
   _catchMultiplier: 0
   PrefabName: Fish

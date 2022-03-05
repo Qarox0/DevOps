@@ -33,7 +33,9 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     [Space]
     [Header("Eating")]
     [SerializeField]                             private bool   _isEdible; //Czy jest jadalny
-    [Tooltip("What is happening on eat")] [SerializeField] 
+    [SerializeField]
+    private string _edibleParams = "";
+    [Tooltip("What is happening on eat")]  [SerializeField]
     #if UNITY_EDITOR
     [RequireInterface(typeof(IEdible))]
     #endif
@@ -190,16 +192,16 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         if (eventData.button == PointerEventData.InputButton.Right && _isEdible)
         {
-            var edibleConversion = _edibleImplementation as IEdible; //Konwertuj na Hexable
-            if (edibleConversion != null)                            //i sprawdź czy reaguje na starcie
+            var edibleConversion = _edibleImplementation as IEdible; //Konwertuj na Edible
+            if (edibleConversion != null)                            
             {
-                edibleConversion.Eat(this);
+                edibleConversion.Eat(_edibleParams, this);
             }
 
             var edibleGameObject = _edibleImplementation as GameObject;
             if (edibleGameObject != null)
             {
-                edibleGameObject.GetComponent<IEdible>().Eat(this);
+                edibleGameObject.GetComponent<IEdible>().Eat(_edibleParams, this);
             }
         }
     }
