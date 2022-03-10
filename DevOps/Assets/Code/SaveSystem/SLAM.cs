@@ -16,7 +16,17 @@ public class SLAM : MonoBehaviour
         if (_instance == null) _instance = FindObjectOfType<SLAM>();
         return _instance;
     }
-
+    [ContextMenu("Save Test")]
+    private void testSaveFunc()
+    {
+        Save(GlobalConsts.PathToSaves+"TestSave.kep");
+    }
+    [ContextMenu("Load Test")]
+    private void testLoadFunc()
+    {
+        Load(GlobalConsts.PathToSaves+"TestSave.kep");
+    }
+    
     
     public void Save(string savePath)
     {
@@ -27,9 +37,12 @@ public class SLAM : MonoBehaviour
 
     public void Load(string savePath)
     {
+        Debug.Log($"Slam loading {savePath}");
         var state = LoadFile(savePath);
         RestoreState(state);
+        #if !UNITY_EDITOR
         OnSaveLoaded.Invoke();
+        #endif
     }
     
     private void SaveFile(object state,string savePath)
@@ -75,7 +88,10 @@ public class SLAM : MonoBehaviour
             if (state.TryGetValue(saveable.ID, out object value))
             {
                 saveable.RestoreState(value);
+                
             }
         }
+        Debug.Log($"Slam Restoring State");
+
     }
 }
