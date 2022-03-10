@@ -24,6 +24,12 @@ MonoBehaviour:
     - {fileID: 1083163227791131439, guid: 1aba6c27ae02fed43a06d1a65c2fc699, type: 3}
     - {fileID: 6695528416699016586, guid: 59a1a3b80e68257418ed61eee4749005, type: 3}
     - {fileID: 3694585273996439707, guid: a262fb96f99901d4fad89f7fa391fea7, type: 3}
+  - MarkColor: {r: 0.91665447, g: 1, b: 0, a: 0}
+    MinValue: 0.858
+    MaxValue: 1
+    ChanceOfObject: 35
+    FloraList:
+    - {fileID: 5630073012859754264, guid: 50d96cf25afaf5348872b7e7afdb0966, type: 3}
   WaterDiversities:
   - MarkColor: {r: 0.25792095, g: 0.4994313, b: 0.7924528, a: 0}
     MinValue: 0

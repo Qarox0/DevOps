@@ -28,11 +28,11 @@ public class Player : MonoBehaviour, ISaveable
     private void InitializeStats()
     {
         stats              = new PlayerStats();
+        stats.MaxHunger    = 100;
+        stats.MaxThirst    = 100;
         stats.Hunger       = 100;
         stats.Thirsty      = 100;
         stats.ActualHealth = stats.Health = 100;
-        stats.MaxHunger    = 100;
-        stats.MaxThirst    = 100;
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
         stats.FatalRisk    = 1;

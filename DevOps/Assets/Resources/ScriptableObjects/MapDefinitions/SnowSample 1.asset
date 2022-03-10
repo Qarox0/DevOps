@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c938b1eb844bb94c971d4f90dd02cc7, type: 3}
+  m_Name: SnowSample 1
+  m_EditorClassIdentifier: 
+  TerrainDiversities:
+  - MarkColor: {r: 0.91665447, g: 1, b: 0, a: 0}
+    MinValue: 0.178
+    MaxValue: 1
+    ChanceOfObject: 80
+    FloraList:
+    - {fileID: 841431963254733758, guid: bf95291f5c1576c45a92d359752e7cff, type: 3}
+  WaterDiversities:
+  - MarkColor: {r: 0.35893556, g: 0.5110668, b: 0.6981132, a: 0}
+    MinValue: 0
+    MaxValue: 0.13
+    ChanceOfObject: 100
+    FloraList:
+    - {fileID: 1361235962512839432, guid: a57f1214065c4c04a9ff0a7ff07d11c8, type: 3}
+  - MarkColor: {r: 0.25792095, g: 0.4994313, b: 0.7924528, a: 0}
+    MinValue: 0
+    MaxValue: 0.147
+    ChanceOfObject: 100
+    FloraList:
+    - {fileID: 4046571000144506562, guid: 2bbbf40cd511acc4b9003bcd3d703539, type: 3}
+  BiomeType: 1
+  FloraType: 1
+  DefaultFillPrefab: {fileID: 5105504226669948584, guid: ead45f8820136ca40ac10f666ed97c16, type: 3}

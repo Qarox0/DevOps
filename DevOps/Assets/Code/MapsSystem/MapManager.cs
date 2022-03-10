@@ -25,6 +25,7 @@ public class MapManager : MonoBehaviour
     private                  Texture2D           _generatedWaterTexture;
     private                  Texture2D           _generatedTerrainTexture;
     private                  Transform           _returnPosition;
+    [SerializeField] private MapDefinitionObject _map;
 
     private bool[,]       GridFillList;
     private GameObject[,] GridList;
@@ -47,14 +48,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Test")]
+    [ContextMenu("Generate Test")]
     private void Test()
     {
         GameObject          player = new GameObject("PlayerDummy");
         SpriteRenderer renderer = player.AddComponent<SpriteRenderer>();
         renderer.sprite = Sprite.Create(_generatedTerrainTexture,new Rect(0,0,_width,_height), new Vector2());
-        MapDefinitionObject map    = Resources.Load<MapDefinitionObject>(GlobalConsts.PathToMapDefinitions + "GrasslandsDefinition");
-        LoadLevelFromCurrentData(player,map);
+        //MapDefinitionObject map    = Resources.Load<MapDefinitionObject>(GlobalConsts.PathToMapDefinitions + "GrasslandsDefinition");
+        LoadLevelFromCurrentData(player,_map);
     }
 
     public void ReturnPlayer(GameObject player)

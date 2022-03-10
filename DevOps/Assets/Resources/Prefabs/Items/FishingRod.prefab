@@ -178,6 +178,7 @@ MonoBehaviour:
   _durability: 1
   _text: {fileID: 8035128431471631887}
   _isEdible: 0
+  _edibleParams: 
   _edibleImplementation: {fileID: 0}
   _catchDictionary: []
   _catchMultiplier: 0
