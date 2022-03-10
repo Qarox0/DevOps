@@ -5,7 +5,6 @@ using Code.Utils;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
-
 public class HexScript : MonoBehaviour, ISaveable
 {
     [Header("Grid Fields")] [Tooltip("Field for object attached on this hexagon")] [SerializeField] 
@@ -33,7 +32,7 @@ public class HexScript : MonoBehaviour, ISaveable
                 _surroundingHexes.Add(hit.collider.gameObject);
             }
         }
-
+        Debug.Log("Executed");
     }
 
     public bool IsHexEmpty()
@@ -156,25 +155,29 @@ public class HexScript : MonoBehaviour, ISaveable
                 Output              = hexConversion.Output;
                 IsCooking           = hexConversion.IsCooking;
                 FuelAmount          = hexConversion.FuelAmount;
+                Debug.Log(hexObjectPrefabName);
+            }
+            var hexGameObject = _objectOnField as GameObject;
+            if (hexGameObject != null)
+            {
+                hexObjectPrefabName = hexGameObject.GetComponent<IHexable>().PrefabName;
+                UseCount         = hexGameObject.GetComponent<IHexable>().UseCount;
+                GrowTime         = hexGameObject.GetComponent<IHexable>().GrowTime;
+                Catched          = hexGameObject.GetComponent<IHexable>().Catched;
+                IsCatched        = hexGameObject.GetComponent<IHexable>().IsCatched;
+                BaitInSlot       = hexGameObject.GetComponent<IHexable>().BaitInSlot;
+                TrapInSlot       = hexGameObject.GetComponent<IHexable>().TrapInSlot;
+                FuelBurningTime  = hexGameObject.GetComponent<IHexable>().FuelBurningTime;
+                FuelPrefab       = hexGameObject.GetComponent<IHexable>().FuelPrefab;
+                TimePassed       = hexGameObject.GetComponent<IHexable>().TimePassed;
+                Recipe           = hexGameObject.GetComponent<IHexable>().Recipe;
+                Output           = hexGameObject.GetComponent<IHexable>().Output;
+                IsCooking        = hexGameObject.GetComponent<IHexable>().IsCooking;
+                FuelAmount       = hexGameObject.GetComponent<IHexable>().FuelAmount;
+                Debug.Log(hexObjectPrefabName);
             }
         }
-        var hexGameObject = _objectOnField as GameObject;
-        if (hexGameObject != null)
-        {hexObjectPrefabName                                       = hexGameObject.GetComponent<IHexable>().PrefabName;
-            UseCount                                               = hexGameObject.GetComponent<IHexable>().UseCount;
-            GrowTime                                               = hexGameObject.GetComponent<IHexable>().GrowTime;
-            Catched                                                = hexGameObject.GetComponent<IHexable>().Catched;
-            IsCatched                                              = hexGameObject.GetComponent<IHexable>().IsCatched;
-            BaitInSlot                                             = hexGameObject.GetComponent<IHexable>().BaitInSlot;
-            TrapInSlot                                             = hexGameObject.GetComponent<IHexable>().TrapInSlot;
-            FuelBurningTime                                        = hexGameObject.GetComponent<IHexable>().FuelBurningTime;
-            FuelPrefab                                             = hexGameObject.GetComponent<IHexable>().FuelPrefab;
-            TimePassed                                             = hexGameObject.GetComponent<IHexable>().TimePassed;
-            Recipe                                                 = hexGameObject.GetComponent<IHexable>().Recipe;
-            Output                                                 = hexGameObject.GetComponent<IHexable>().Output;
-            IsCooking                                              = hexGameObject.GetComponent<IHexable>().IsCooking;
-            FuelAmount                                             = hexGameObject.GetComponent<IHexable>().FuelAmount;
-        }
+        
         return new HexSaveData
         {
             RadiusOfNearHexCheck    = _radiusOfNearHexCheck,
@@ -231,6 +234,8 @@ public class HexScript : MonoBehaviour, ISaveable
                     hexConversion.Output          = data.Output;
                     hexConversion.IsCooking       = data.IsCooking;
                     hexConversion.FuelAmount      = data.FuelAmount;
+                    Debug.Log("Restored");
+
                 }
                 var hexGameObject = _objectOnField as GameObject;
                 if (hexGameObject != null)
@@ -249,6 +254,8 @@ public class HexScript : MonoBehaviour, ISaveable
                     hexGameObject.GetComponent<IHexable>().Output          = data.Output;
                     hexGameObject.GetComponent<IHexable>().IsCooking       = data.IsCooking;
                     hexGameObject.GetComponent<IHexable>().FuelAmount      = data.FuelAmount;
+                    Debug.Log("Restored");
+
                 }
             }
         }

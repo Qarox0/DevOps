@@ -146,10 +146,10 @@ public class GameMenuController : MonoBehaviour
             string   saveName      = saveNameSplit[saveNameSplit.Length - 1].Split('.')[0];
             var      child         = Instantiate(_saveLoadPrefab, _loadContent.transform, false);
             child.transform.GetChild(0).GetComponent<TMP_Text>().text = saveName;
-            child.GetComponent<Button>().onClick.AddListener(() => fileName = saveName +GlobalConsts.SaveFileExtension);
+            child.GetComponent<Button>().onClick.AddListener(() => fileName = saveName);
             var child2 = Instantiate(_saveLoadPrefab,_saveContent.transform,false);
             child2.transform.GetChild(0).GetComponent<TMP_Text>().text = saveName;
-            child.GetComponent<Button>().onClick.AddListener(() => fileName = saveName+GlobalConsts.SaveFileExtension);
+            child2.GetComponent<Button>().onClick.AddListener(() => fileName = saveName);
 
         }
     }
@@ -173,7 +173,7 @@ public class GameMenuController : MonoBehaviour
 
     private void LoadGame()
     {
-        if (File.Exists($"{GlobalConsts.PathToSaves}{fileName}"))
+        if (File.Exists($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}"))
         {
             SLAM.GetInstance().Load($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}");
             Debug.Log("Loaded");
