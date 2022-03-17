@@ -32,7 +32,6 @@ public class HexScript : MonoBehaviour, ISaveable
                 _surroundingHexes.Add(hit.collider.gameObject);
             }
         }
-        Debug.Log("Executed");
     }
 
     public bool IsHexEmpty()
@@ -254,7 +253,6 @@ public class HexScript : MonoBehaviour, ISaveable
                     hexGameObject.GetComponent<IHexable>().Output          = data.Output;
                     hexGameObject.GetComponent<IHexable>().IsCooking       = data.IsCooking;
                     hexGameObject.GetComponent<IHexable>().FuelAmount      = data.FuelAmount;
-                    Debug.Log("Restored");
 
                 }
             }

@@ -37,7 +37,6 @@ public class SLAM : MonoBehaviour
 
     public void Load(string savePath)
     {
-        Debug.Log($"Slam loading {savePath}");
         var state = LoadFile(savePath);
         RestoreState(state);
         #if !UNITY_EDITOR
@@ -91,7 +90,6 @@ public class SLAM : MonoBehaviour
                 
             }
         }
-        Debug.Log($"Slam Restoring State");
 
     }
 }

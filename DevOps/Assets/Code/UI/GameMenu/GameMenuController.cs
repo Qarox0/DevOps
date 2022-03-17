@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 using Code.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class GameMenuController : MonoBehaviour
 {
@@ -38,7 +40,6 @@ public class GameMenuController : MonoBehaviour
     [SerializeField] private GameObject          _saveLoadPrefab;
     [SerializeField] private GameObject          _blocker;
     [SerializeField] private PlayerInput         _input;
-    
     //Debug 
     [SerializeField] private MapDefinitionObject _map;
     [SerializeField] private Button              _startAdventureButton;
@@ -79,6 +80,17 @@ public class GameMenuController : MonoBehaviour
         #endregion
 
         if (_input == null) _input = FindObjectOfType<PlayerInput>();
+        if( PlayerPrefs.HasKey("NewGame") && PlayerPrefs.GetInt("NewGame") == 0)
+        {
+            if (PlayerPrefs.HasKey("GameToLoad") && PlayerPrefs.GetString("GameToLoad") != null)
+            {
+                fileName = PlayerPrefs.GetString("GameToLoad");
+                if (File.Exists($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}"))
+                {
+                    SLAM.GetInstance().Load($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}");
+                }
+            }
+        }
     }
 
     #region Button Methods
@@ -176,11 +188,6 @@ public class GameMenuController : MonoBehaviour
         if (File.Exists($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}"))
         {
             SLAM.GetInstance().Load($"{GlobalConsts.PathToSaves}{fileName}{GlobalConsts.SaveFileExtension}");
-            Debug.Log("Loaded");
-        }
-        else
-        {
-            Debug.Log($"File not exists at: {GlobalConsts.PathToSaves}{fileName}");
         }
     }
 
@@ -250,11 +257,12 @@ public class GameMenuController : MonoBehaviour
     {
         Debug.Log("Settings not implemented yet");
     }
-
+    
     #endregion
     // Update is called once per frame
     void Update()
     {
         
     }
+    
 }

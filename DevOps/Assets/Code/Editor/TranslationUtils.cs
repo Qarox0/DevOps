@@ -52,15 +52,15 @@ public class TranslationUtils: Editor
             }
         }
 
-        foreach (var quality in MenuManager.LIST_OF_QUALITIES)
+        foreach (var quality in SettingsPanelManager.LIST_OF_QUALITIES)
         {
             TranslationKeys.Add(quality);
         }
-        foreach (var settings in MenuManager.LIST_OF_FULLSCREEN_OPTIONS)
+        foreach (var settings in SettingsPanelManager.LIST_OF_FULLSCREEN_OPTIONS)
         {
             TranslationKeys.Add(settings);
         }
-        foreach (var lang in MenuManager.LIST_OF_LANGUAGES_OPTIONS)
+        foreach (var lang in SettingsPanelManager.LIST_OF_LANGUAGES_OPTIONS)
         {
             TranslationKeys.Add(lang);
         }
