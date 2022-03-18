@@ -8,7 +8,8 @@ public class NewGameLaunch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.GetInstance().LaunchEvent("StartEvent");
+        if(PlayerPrefs.HasKey("NewGame") && PlayerPrefs.GetInt("NewGame") == 1)
+            EventManager.GetInstance().LaunchEvent("StartEvent");
     }
 
     // Update is called once per frame

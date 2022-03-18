@@ -106,7 +106,6 @@ public class MenuManager : MonoBehaviour
 
     private void StartNewGame()
     {
-        Debug.Log("Loaded");
         PlayerPrefs.SetInt("NewGame", 1);
         SceneManager.LoadScene("Scenes/Mapa");
     }

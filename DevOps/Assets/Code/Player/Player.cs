@@ -18,10 +18,12 @@ public class Player : MonoBehaviour, ISaveable
     [SerializeField] private GameObject     _blocker;         //uchwyt do ui inv
     [SerializeField] private int            _timeTakenToMove; //Czas potrzebny na przejscie pola
     private                  SpriteRenderer _renderer;
+    private                  int            _stepCounter = 0;
     private void Start()
     {
         InitializeStats();
-        _renderer = GetComponent<SpriteRenderer>();
+        _renderer    =  GetComponent<SpriteRenderer>();
+        onPlayerMove += HandleMoveEvents;
     }
     
 
@@ -36,6 +38,14 @@ public class Player : MonoBehaviour, ISaveable
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
         stats.FatalRisk    = 1;
+    }
+
+    private void HandleMoveEvents()
+    {
+        if (_stepCounter == 100)
+        {
+            EventManager.GetInstance().LaunchEvent("PlanetPioneerEvent");
+        }
     }
 
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
@@ -65,7 +75,7 @@ public class Player : MonoBehaviour, ISaveable
             var          mousePosition = Mouse.current.position.ReadValue();
             Vector2      inWorldSpace  = Camera.main.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hit           = Physics2D.Raycast(inWorldSpace, Vector2.zero);
-            if (hit.collider != null && hit.collider.tag == "Hex")
+            if (hit.collider != null && hit.collider.tag == "Hex" && hit.collider.gameObject != transform.parent.gameObject)
             {
                 var hex         = transform.parent.GetComponent<HexScript>();
                 var objectOnHex = hit.collider.GetComponentInChildren<IHexable>();
@@ -74,16 +84,20 @@ public class Player : MonoBehaviour, ISaveable
                     if (objectOnHex != null && objectOnHex.IsPassable)
                     {
                         transform.SetParent(hit.collider.transform, false);
+                        transform.parent.GetComponent<HexScript>().HandlePlayerEnter(this);
                         _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder+1;
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * objectOnHex.MovementMultiplier * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();
+                        _stepCounter++;
                     }
                     else if (objectOnHex == null)
                     {
                         _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder+1;
                         transform.SetParent(hit.collider.transform, false);
+                        transform.parent.GetComponent<HexScript>().HandlePlayerEnter(this);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();
+                        _stepCounter++;
                     }
                 }
             }
@@ -129,7 +143,8 @@ public class Player : MonoBehaviour, ISaveable
         return new PlayerSaveData
         {
             HexName = transform.parent.name,
-            Stats = stats
+            Stats = stats,
+            StepCount = _stepCounter
         };
     }
 
@@ -137,12 +152,14 @@ public class Player : MonoBehaviour, ISaveable
     {
         var data = (PlayerSaveData) state;
         transform.SetParent(GameObject.Find(data.HexName).transform, false);
-        stats = data.Stats;
+        stats        = data.Stats;
+        _stepCounter = data.StepCount;
     }
     [Serializable]
     public struct PlayerSaveData
     {
-        public  string      HexName;
-        public PlayerStats  Stats;
+        public string      HexName;
+        public int         StepCount;
+        public PlayerStats Stats;
     }
 }

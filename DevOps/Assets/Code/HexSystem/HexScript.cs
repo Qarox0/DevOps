@@ -19,6 +19,8 @@ public class HexScript : MonoBehaviour, ISaveable
     [Header("debug")]
     [SerializeField] private bool             _isDrawingGizmos = true;
     private                  List<GameObject> _surroundingHexes;
+    [SerializeField] private string           _eventToLaunchOnStep;
+    private                  bool             _eventWasLaunched;
 
     private void Start()
     {
@@ -95,6 +97,13 @@ public class HexScript : MonoBehaviour, ISaveable
             {
                 hexConversion.Interaction(player); //Niech zareaguje
             }
+
+            
+        }
+        if (!_eventWasLaunched && _eventToLaunchOnStep != String.Empty)
+        {
+            EventManager.GetInstance().LaunchEvent(_eventToLaunchOnStep);
+            _eventWasLaunched = true;
         }
     }
 
@@ -194,7 +203,9 @@ public class HexScript : MonoBehaviour, ISaveable
             Recipe                  = Recipe,
             Output                  = Output,
             IsCooking               = IsCooking,
-            FuelAmount              = FuelAmount
+            FuelAmount              = FuelAmount,
+            EventToLaunch = _eventToLaunchOnStep,
+            EventWasLaunched = _eventWasLaunched
         };
     }
     
@@ -233,7 +244,6 @@ public class HexScript : MonoBehaviour, ISaveable
                     hexConversion.Output          = data.Output;
                     hexConversion.IsCooking       = data.IsCooking;
                     hexConversion.FuelAmount      = data.FuelAmount;
-                    Debug.Log("Restored");
 
                 }
                 var hexGameObject = _objectOnField as GameObject;
@@ -253,10 +263,12 @@ public class HexScript : MonoBehaviour, ISaveable
                     hexGameObject.GetComponent<IHexable>().Output          = data.Output;
                     hexGameObject.GetComponent<IHexable>().IsCooking       = data.IsCooking;
                     hexGameObject.GetComponent<IHexable>().FuelAmount      = data.FuelAmount;
-
                 }
             }
         }
+
+        _eventWasLaunched    = data.EventWasLaunched;
+        _eventToLaunchOnStep = data.EventToLaunch;
     }
     [Serializable]
     private struct HexSaveData
@@ -277,5 +289,7 @@ public class HexScript : MonoBehaviour, ISaveable
         public RequiredItem Output;
         public bool         IsCooking;
         public int          FuelAmount;
+        public string       EventToLaunch;
+        public bool         EventWasLaunched;
     }
 }
