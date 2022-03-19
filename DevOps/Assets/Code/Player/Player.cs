@@ -94,7 +94,7 @@ public class Player : MonoBehaviour, ISaveable
                     {
                         _renderer.sortingOrder = hit.collider.GetComponent<SpriteRenderer>().sortingOrder+1;
                         transform.SetParent(hit.collider.transform, false);
-                        transform.parent.GetComponent<HexScript>().HandlePlayerEnter(this);
+                        transform.parent.GetComponent<HexScript>()?.HandlePlayerEnter(this);
                         TimeManager.GetTimeManagerInstance().PassTime(_timeTakenToMove * hex.MovementMultiplier);
                         onPlayerMove?.Invoke();
                         _stepCounter++;

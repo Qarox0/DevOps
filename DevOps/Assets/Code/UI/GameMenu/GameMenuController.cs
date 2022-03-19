@@ -58,7 +58,6 @@ public class GameMenuController : MonoBehaviour
     void Start()
     {
         #region Button Bindings
-
         _openGameMenuButton.onClick.AddListener(OpenMenu);
         _closeGameMenuButton.onClick.AddListener(CloseMenu);
         _exitGameButton.onClick.AddListener(() => OpenConfirmation(ConfirmationContextEnum.EXIT));
@@ -259,10 +258,5 @@ public class GameMenuController : MonoBehaviour
     }
     
     #endregion
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
 }

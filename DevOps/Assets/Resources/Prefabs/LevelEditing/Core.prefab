@@ -498,6 +498,15 @@ MonoBehaviour:
   _saveLoadPrefab: {fileID: 8972246445143949531, guid: db9db18f06985cf4989448aa8f0aabce, type: 3}
   _blocker: {fileID: 3110259232189245743}
   _input: {fileID: 6632232162035283460}
+  _map: {fileID: 0}
+  _startAdventureButton: {fileID: 0}
+  _returnAdventureButton: {fileID: 0}
+  _toggleBackpackButton: {fileID: 0}
+  _toggleCraftingButton: {fileID: 0}
+  _doButton: {fileID: 0}
+  _transitionPanel: {fileID: 0}
+  _backpackPanel: {fileID: 0}
+  _craftingPanel: {fileID: 0}
 --- !u!1 &4662871486320534548
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +559,7 @@ MonoBehaviour:
   _hexHeight: 0.91
   _hexOffsetY: 0.45
   _tolerance: 0.01
+  _map: {fileID: 0}
 --- !u!1 &5390280931624901701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,11 +1772,11 @@ PrefabInstance:
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
       propertyPath: _recipes.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d95bcad4b83d26d4eb1d4e89a9b82929, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
       propertyPath: _recipes.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: e482dc610fa8bd04d9c33d5c329052af, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5073597354426187851, guid: 9f4ce22ab9b95634ca72bddf06fd5d83, type: 3}
       propertyPath: _cookingSlots.Array.size
       value: 3

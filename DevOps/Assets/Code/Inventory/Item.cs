@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 using Random = System.Random;
 
 //Klasa itemu przypisanego do slota
-public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Tooltip("How much item weight")]
     [SerializeField] private float    _weight;                //Waga itemu
@@ -56,8 +56,10 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private       Canvas      _canvas;          //Do Dragga
     private       bool        _isDroppedOnSlot; //Do Dragga
     private       bool        _isOnItem;        //Do Dragga
-    private const int         MINCHANCE = 0;
-    private const int         MAXCHANCE = 100;
+    private const int         MINCHANCE       = 0;
+    private const int         MAXCHANCE       = 100;
+    private       bool        _isTooltipDrwan = false;
+    private       Tooltiper   _tooltiper;
     public int Quantity
     {
         get { return _quantity;}
@@ -82,6 +84,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _canvas      = GetComponentInParent<Canvas>();
+        _tooltiper   = transform.parent.parent.GetComponentInChildren<Tooltiper>(true);
     }
 
     // Update is called once per frame
@@ -92,6 +95,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             this.transform.position = Mouse.current.position.ReadValue();
         }
     }
+    
 
     #region getters & setters
     public float GetWeight()
@@ -204,6 +208,16 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
                 edibleGameObject.GetComponent<IEdible>().Eat(_edibleParams, this);
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _tooltiper.ShowTooltip(this);
+    }
+
+    public void OnPointerExit(PointerEventData  eventData)
+    {
+        _tooltiper.HideTooltip();
     }
 }
 

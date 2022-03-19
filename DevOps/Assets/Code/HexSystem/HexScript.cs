@@ -19,6 +19,7 @@ public class HexScript : MonoBehaviour, ISaveable
     [Header("debug")]
     [SerializeField] private bool             _isDrawingGizmos = true;
     private                  List<GameObject> _surroundingHexes;
+    [SerializeField] private bool             _haveEvent = false;
     [SerializeField] private string           _eventToLaunchOnStep;
     private                  bool             _eventWasLaunched;
 
@@ -100,7 +101,7 @@ public class HexScript : MonoBehaviour, ISaveable
 
             
         }
-        if (!_eventWasLaunched && _eventToLaunchOnStep != String.Empty)
+        if (!_eventWasLaunched && _haveEvent)
         {
             EventManager.GetInstance().LaunchEvent(_eventToLaunchOnStep);
             _eventWasLaunched = true;
