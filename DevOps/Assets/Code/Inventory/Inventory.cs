@@ -55,13 +55,14 @@ public class Inventory : MonoBehaviour, ISaveable
             {
                 var  itemObject = Instantiate(itemPrefab, emptySlot.transform);
                 itemObject.GetComponent<Item>().Quantity++;
+                
             }
             else
             {
                 //TODO Implementacja pełnego ekwipunku
             }
         }
-
+        Player.GetInstance().Tell($"<color=\"red\">+1 {itemPrefab.GetComponent<Item>()._name}</color>");
         CalculateWeight();
     }
 

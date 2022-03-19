@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -13,17 +15,29 @@ public class Player : MonoBehaviour, ISaveable
     public PlayerStats stats;
     
     [SerializeField] private GameObject     _inventoryHandle; //uchwyt do ui inv
-    [SerializeField] private GameObject     _craftingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject     _buildingHandle;  //uchwyt do ui inv
-    [SerializeField] private GameObject     _blocker;         //uchwyt do ui inv
+    [SerializeField] private GameObject     _craftingHandle;  
+    [SerializeField] private GameObject     _buildingHandle;  
+    [SerializeField] private GameObject     _blocker;         
+    [SerializeField] private GameObject     _narratorBlockPrefab;
+    [SerializeField] private GameObject     _worldSpaceCanvas;
     [SerializeField] private int            _timeTakenToMove; //Czas potrzebny na przejscie pola
     private                  SpriteRenderer _renderer;
     private                  int            _stepCounter = 0;
+    private                  float          _actionDelay = 0;
+
+    private static Player _instance;
+
+    public static Player GetInstance()
+    {
+        if (_instance == null) _instance = FindObjectOfType<Player>();
+        return _instance;
+    }
     private void Start()
     {
         InitializeStats();
         _renderer    =  GetComponent<SpriteRenderer>();
         onPlayerMove += HandleMoveEvents;
+        Tell("Fuck u");
     }
     
 
@@ -50,9 +64,10 @@ public class Player : MonoBehaviour, ISaveable
 
     public void InteractWithHexBelow(InputAction.CallbackContext value) //input interakcji z hexem na którym stoimy
     {
-        if (value.started && _blocker.activeSelf == false)
+        if (value.started && _blocker.activeSelf == false && _actionDelay <= 0)
         {
             transform.parent.GetComponent<HexScript>().HandlePlayerInteraction(this);
+            _actionDelay += 1;
         }
     }
 
@@ -130,6 +145,23 @@ public class Player : MonoBehaviour, ISaveable
         }
     }
 
+    public void Tell(string msg)
+    {
+        var child = Instantiate(_narratorBlockPrefab, _worldSpaceCanvas.transform);
+        child.GetComponent<RectTransform>().DOLocalMove(new Vector3(0,1), 5f);
+        var img = child.GetComponent<Image>();
+        img.color = new Color(img.color.r, img.color.g, img.color.r, 0);
+        var txt = child.GetComponentInChildren<TMP_Text>();
+        txt.color = new Color(txt.color.r, txt.color.g, txt.color.r, 0);
+        img.DOColor(new Color(img.color.r, img.color.g, img.color.r, 1), 2.5f)
+           .OnComplete(() => img.DOColor(new Color(img.color.r, img.color.g, img.color.r, 0), 2.5f)
+                                .OnComplete(() =>Destroy(img.gameObject)));
+        txt.text = msg;
+        txt.DOColor(new Color(txt.color.r, txt.color.g, txt.color.r, 1), 2.5f)
+           .OnComplete(() => txt.DOColor(new Color(txt.color.r, txt.color.g, txt.color.r, 0), 2.5f)
+                                .OnComplete(() =>Destroy(txt.gameObject)));
+    }
+
     public void LaunchDebugEvent(InputAction.CallbackContext value)
     {
         if (value.started)
@@ -161,5 +193,10 @@ public class Player : MonoBehaviour, ISaveable
         public string      HexName;
         public int         StepCount;
         public PlayerStats Stats;
+    }
+
+    private void Update()
+    {
+        _actionDelay = Mathf.Clamp(_actionDelay - Time.deltaTime, -1, 1);
     }
 }
