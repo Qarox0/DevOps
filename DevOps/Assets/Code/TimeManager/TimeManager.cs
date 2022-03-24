@@ -1,20 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class TimeManager : MonoBehaviour, ISaveable
 {
     public event Action<int> onTimePasses;
     
-    [SerializeField] private int         _hoursPerDay             = 6;  //Ile godzin ma doba
-    [SerializeField] private int         _minutesPerHourMultipiler = 60; //mnożnik minut dla doby
+    [SerializeField] private int      _hoursPerDay              = 6;  //Ile godzin ma doba
+    [SerializeField] private int      _minutesPerHourMultipiler = 60; //mnożnik minut dla doby
     [SerializeField] private TMP_Text _text;
-    private                  int         _minutesPerDay; //ile minut trwa doba
-    private                  int         _time = 0;      //czas w minutach od północy
-    private                  int         _day  = 1;      //który dzień od początku rozgrywki (numeracja od 1)
+    [SerializeField] private Image    _transitionPanel;
+    private                  int      _minutesPerDay; //ile minut trwa doba
+    private                  int      _time = 0;      //czas w minutach od północy
+    private                  int      _day  = 1;      //który dzień od początku rozgrywki (numeracja od 1)
 
     //TODO Wyrzucić do osobnej klasy
     [SerializeField][Range(0,1)]
@@ -102,10 +105,21 @@ public class TimeManager : MonoBehaviour, ISaveable
     {
         throw new NotImplementedException();
     }
+    public void Sleep(int sleepTime)
+    {
+        _transitionPanel.gameObject.SetActive(true);
+        _transitionPanel.DOColor(new Color(0, 0, 0, 1), 3).OnComplete(()=>
+        {
+            _transitionPanel.DOColor(new Color(0, 0, 0, 0), 3);
+            PassTime(sleepTime);
+        });
+        
+    }
     
     public struct TimeSaveData
     {
         public int Time;
         public int Day;
     }
+    
 }

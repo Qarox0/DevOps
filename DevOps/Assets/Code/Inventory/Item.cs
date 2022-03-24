@@ -58,7 +58,6 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private       bool        _isOnItem;        //Do Dragga
     private const int         MINCHANCE       = 0;
     private const int         MAXCHANCE       = 100;
-    private       bool        _isTooltipDrwan = false;
     private       Tooltiper   _tooltiper;
     public int Quantity
     {

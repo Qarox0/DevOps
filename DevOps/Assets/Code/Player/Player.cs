@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Code.Utils;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour, ISaveable
     private                  SpriteRenderer _renderer;
     private                  int            _stepCounter = 0;
     private                  float          _actionDelay = 0;
+    private                  string         _heroDef;
 
     private static Player _instance;
 
@@ -34,14 +36,33 @@ public class Player : MonoBehaviour, ISaveable
     }
     private void Start()
     {
-        InitializeStats();
+        if (PlayerPrefs.HasKey("PlayerSelected"))
+        {
+            _heroDef = PlayerPrefs.GetString("PlayerSelected");
+        }
         _renderer    =  GetComponent<SpriteRenderer>();
+        LoadPlayer();
         onPlayerMove += HandleMoveEvents;
-        Tell("Fuck u");
+    }
+
+    private void LoadPlayer()
+    {
+        HeroObject hero = null;
+        hero = Resources.Load<HeroObject>($"{GlobalConsts.PathToHeroes}{_heroDef}");
+
+        if (hero != null)
+        {
+            InitializeStats(hero.StatsBonuses);
+            _renderer.sprite = hero.HeroImage; 
+        }
+        else
+        {
+            InitializeStats();
+        }
     }
     
 
-    private void InitializeStats()
+    private void InitializeStats(List<StatsBonus> bonuses = null)
     {
         stats              = new PlayerStats();
         stats.MaxHunger    = 100;
@@ -52,6 +73,30 @@ public class Player : MonoBehaviour, ISaveable
         stats.Luck         = 1;
         stats.Sanity       = stats.HeadDamage = stats.TorsoDamage = stats.LeftLegDamage = stats.RightLegDamage = 100;
         stats.FatalRisk    = 1;
+        if (bonuses != null)
+        {
+            foreach (var bonus in bonuses)
+            {
+                switch (bonus.Name)
+                {
+                    case nameof(stats.Health):
+                        stats.Health += bonus.value;
+                        break;
+                    case nameof(stats.MaxHunger):
+                        stats.MaxHunger += bonus.value;
+                        break;
+                    case nameof(stats.MaxThirst):
+                        stats.MaxThirst += bonus.value;
+                        break;
+                    case nameof(stats.Luck):
+                        stats.Luck += bonus.value;
+                        break;
+                    case nameof(stats.FatalRisk):
+                        stats.FatalRisk += bonus.value;
+                        break;
+                }
+            }
+        }
     }
 
     private void HandleMoveEvents()
@@ -176,7 +221,8 @@ public class Player : MonoBehaviour, ISaveable
         {
             HexName = transform.parent.name,
             Stats = stats,
-            StepCount = _stepCounter
+            StepCount = _stepCounter,
+            HeroDef = _heroDef
         };
     }
 
@@ -186,6 +232,8 @@ public class Player : MonoBehaviour, ISaveable
         transform.SetParent(GameObject.Find(data.HexName).transform, false);
         stats        = data.Stats;
         _stepCounter = data.StepCount;
+        _heroDef     = data.HeroDef;
+        LoadPlayer();
     }
     [Serializable]
     public struct PlayerSaveData
@@ -193,6 +241,7 @@ public class Player : MonoBehaviour, ISaveable
         public string      HexName;
         public int         StepCount;
         public PlayerStats Stats;
+        public string  HeroDef;
     }
 
     private void Update()
