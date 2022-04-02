@@ -28,7 +28,7 @@ MonoBehaviour:
     - {fileID: 1361235962512839432, guid: a57f1214065c4c04a9ff0a7ff07d11c8, type: 3}
   - MarkColor: {r: 0.25792095, g: 0.4994313, b: 0.7924528, a: 0}
     MinValue: 0
-    MaxValue: 0.147
+    MaxValue: 0.19
     ChanceOfObject: 100
     FloraList:
     - {fileID: 4046571000144506562, guid: 2bbbf40cd511acc4b9003bcd3d703539, type: 3}

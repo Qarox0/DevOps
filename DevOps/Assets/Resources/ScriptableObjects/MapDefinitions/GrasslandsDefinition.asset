@@ -24,6 +24,8 @@ MonoBehaviour:
     - {fileID: 1083163227791131439, guid: 1aba6c27ae02fed43a06d1a65c2fc699, type: 3}
     - {fileID: 6695528416699016586, guid: 59a1a3b80e68257418ed61eee4749005, type: 3}
     - {fileID: 3694585273996439707, guid: a262fb96f99901d4fad89f7fa391fea7, type: 3}
+    - {fileID: 1982388172329585544, guid: 680d6cb74edf37540b2a0025086d2565, type: 3}
+    - {fileID: 3263170039082318064, guid: 3b78aaab099165c4ca4b263b21bc9c97, type: 3}
   - MarkColor: {r: 0.91665447, g: 1, b: 0, a: 0}
     MinValue: 0.858
     MaxValue: 1
@@ -37,6 +39,15 @@ MonoBehaviour:
     ChanceOfObject: 100
     FloraList:
     - {fileID: 4046571000144506562, guid: 2bbbf40cd511acc4b9003bcd3d703539, type: 3}
+  UniqueChunks:
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
+  - {fileID: 11400000, guid: 4ac00a7445d086946aab29988b23ca62, type: 2}
   BiomeType: 0
   FloraType: 2
   DefaultFillPrefab: {fileID: 1354858418965729345, guid: e94dcdc5cd2a9984095d5b9aa5140a68, type: 3}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce489ffd70b1eee48b3b8843719328f1, type: 3}
+  m_Name: DebugChunk
+  m_EditorClassIdentifier: 
+  ChunkPrefab: {fileID: 723492356193620358, guid: 8f0589ca245202747bfa825c9ee62bfa, type: 3}
+  ChanceToSpawn: 100
+  SizeX: 5
+  SizeY: 5

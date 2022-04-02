@@ -176,7 +176,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded1.ItemNeeded                                != null              &&
                              recipe.ItemNeeded1.Amount                                    == slotItem.Quantity &&
-                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded1.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded1.ItemNeeded).GetComponent<Item>().PrefabName == slotItem.PrefabName)
                     {
                         reducedRecpieList.Add(recipe);
                     }
@@ -189,7 +189,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded2.ItemNeeded                                != null              &&
                              recipe.ItemNeeded2.Amount                                    == slotItem.Quantity &&
-                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded2.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded2.ItemNeeded).GetComponent<Item>().PrefabName == slotItem.PrefabName)
                     {
                         reducedRecpieList.Add(recipe);
                     }
@@ -202,7 +202,7 @@ public class CookingManager : MonoBehaviour
                     }else if(slotItem                                                     != null              &&
                              recipe.ItemNeeded3.ItemNeeded                                != null              &&
                              recipe.ItemNeeded3.Amount                                    == slotItem.Quantity &&
-                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded3.ItemNeeded).GetComponent<Item>().GetName() == slotItem.GetName())
+                             Resources.Load<GameObject>(GlobalConsts.PathToItems +recipe.ItemNeeded3.ItemNeeded).GetComponent<Item>().PrefabName == slotItem.PrefabName)
                     {
                         reducedRecpieList.Add(recipe);
                     }

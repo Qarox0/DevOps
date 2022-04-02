@@ -83,7 +83,7 @@ public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _canvas      = GetComponentInParent<Canvas>();
-        _tooltiper   = transform.parent.parent.GetComponentInChildren<Tooltiper>(true);
+        _tooltiper   = Tooltiper.GetInstane();
     }
 
     // Update is called once per frame

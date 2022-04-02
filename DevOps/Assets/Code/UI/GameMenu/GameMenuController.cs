@@ -41,15 +41,17 @@ public class GameMenuController : MonoBehaviour
     [SerializeField] private GameObject          _blocker;
     [SerializeField] private PlayerInput         _input;
     //Debug 
-    [SerializeField] private MapDefinitionObject _map;
+    [SerializeField] private BiomeDefinitionObject _map;
     [SerializeField] private Button              _startAdventureButton;
     [SerializeField] private Button              _returnAdventureButton;
     [SerializeField] private Button              _toggleBackpackButton;
     [SerializeField] private Button              _toggleCraftingButton;
+    [SerializeField] private Button              _toggleAlchemyButton;
     [SerializeField] private Button              _doButton;
     [SerializeField] private Image               _transitionPanel;
     [SerializeField] private GameObject          _backpackPanel;
     [SerializeField] private GameObject          _craftingPanel;
+    [SerializeField] private GameObject          _alchemyPanel;
     private                  bool                _onAdventure = false;
     #endregion
 
@@ -72,6 +74,7 @@ public class GameMenuController : MonoBehaviour
         _saveGameButton.onClick.AddListener(SaveGame);
         //debug
         _startAdventureButton.onClick.AddListener(StartAdventure);
+        _toggleAlchemyButton.onClick.AddListener(() => _alchemyPanel.SetActive(!_alchemyPanel.activeSelf));
         _returnAdventureButton.onClick.AddListener(ReturnAdventure);
         _toggleBackpackButton.onClick.AddListener(()=> _backpackPanel.SetActive(!_backpackPanel.activeSelf));
         _toggleCraftingButton.onClick.AddListener(()=> _craftingPanel.SetActive(!_craftingPanel.activeSelf));

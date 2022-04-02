@@ -21,11 +21,11 @@ public class MapManager : MonoBehaviour
     [SerializeField] private float               _hexHeight    = 1.74f;
     [SerializeField] private float               _hexOffsetY   = 1.74f;
     [SerializeField] private float               _tolerance    = 0.0001f;
-    private                  MapDefinitionObject _mapDefinition;
+    private                  BiomeDefinitionObject _mapDefinition;
     private                  Texture2D           _generatedWaterTexture;
     private                  Texture2D           _generatedTerrainTexture;
     private                  Transform           _returnPosition;
-    [SerializeField] private MapDefinitionObject _map;
+    [SerializeField] private BiomeDefinitionObject _map;
 
     private bool[,]       GridFillList;
     private GameObject[,] GridList;
@@ -36,16 +36,6 @@ public class MapManager : MonoBehaviour
     {
         if (_Instance == null) _Instance = FindObjectOfType<MapManager>();
         return _Instance;
-    }
-    [ContextMenu("test2")]
-    private void test2()
-    {
-        Debug.Log(_generateParent.childCount);
-        for (int i = 0; i < _generateParent.childCount; i++)
-        {
-            Debug.Log(i);
-            DestroyImmediate(_generateParent.GetChild(i).gameObject);
-        }
     }
 
     [ContextMenu("Generate Test")]
@@ -68,7 +58,7 @@ public class MapManager : MonoBehaviour
             _returnPosition                                    = null;
         }
     }
-    public void LoadLevelFromCurrentData(GameObject player, MapDefinitionObject mapDefinition)
+    public void LoadLevelFromCurrentData(GameObject player, BiomeDefinitionObject mapDefinition)
     {
         if (_returnPosition != null)
         {
@@ -89,7 +79,7 @@ public class MapManager : MonoBehaviour
             player.transform.parent.GetComponent<SpriteRenderer>().sortingOrder +1;
     }
     
-    private void GenerateLevel(MapDefinitionObject mapDefinition)
+    private void GenerateLevel(BiomeDefinitionObject mapDefinition)
     {
         GridFillList = new bool[_width, _height];
         GridList     = new GameObject[_width, _height];
@@ -251,17 +241,35 @@ public class MapManager : MonoBehaviour
 
     private void GenerateHexMapFromTexture(GameObject parent)
     {
+        List<Vector2> positionsToSkip = new List<Vector2>();
+        foreach (var chunk in _mapDefinition.UniqueChunks)
+        {
+            int x = Random.Range(0, _width-chunk.SizeX);
+            int y = Random.Range(0, _height-chunk.SizeY);
+            SpawnChunk(chunk,x,y,parent, positionsToSkip);
+        }
         for (int x = 0; x < _width; x++)
         {
             for (int y = 0; y < _height; y++)
             {
-                SpawnFromDiversity(_generatedWaterTexture,   _mapDefinition.WaterDiversities,   x, y, parent);
-                SpawnFromDiversity(_generatedTerrainTexture, _mapDefinition.TerrainDiversities, x, y, parent);
-                if (GridFillList[x, y] == false)
+                bool skip = false;
+                foreach (var position in positionsToSkip)
                 {
-                    SpawnEmpty(_mapDefinition.DefaultFillPrefab, x, y, parent);
+                    if (position.x == x && position.y == y)
+                    {
+                        skip = true;
+                    }
                 }
-                
+
+                if (!skip)
+                {
+                    SpawnFromDiversity(_generatedWaterTexture,   _mapDefinition.WaterDiversities,   x, y, parent);
+                    SpawnFromDiversity(_generatedTerrainTexture, _mapDefinition.TerrainDiversities, x, y, parent);
+                    if (GridFillList[x, y] == false)
+                    {
+                        SpawnEmpty(_mapDefinition.DefaultFillPrefab, x, y, parent);
+                    }
+                }
             }
         }
     }
@@ -274,6 +282,52 @@ public class MapManager : MonoBehaviour
         child.GetComponent<SpriteRenderer>().sortingOrder = y - 1;
         GridList[x, y]                                    = child;
     }
+
+    private void SpawnChunk(ChunkDefinitionObject chunk, int x, int y, GameObject parent, List<Vector2> positionToSkip)
+    {
+        int           roll            = Random.Range(0, 100);
+        if (roll <= chunk.ChanceToSpawn)
+        {
+            var chunkRoot = Instantiate(chunk.ChunkPrefab, (Vector3)positionFromCoords(x,y)+parent.transform.position, new Quaternion());
+            chunkRoot.transform.SetParent(parent.transform,true);
+            chunkRoot.name = "ChunkRoot";
+            for (int i = 0; i < chunk.SizeX; i++)
+            {
+                for (int j = 0; j < chunk.SizeY; j++)
+                {
+                    var child = chunkRoot.transform.Find($"ChunkGrid({i},{j})");
+                    if (child != null)
+                    {
+
+                        child.gameObject.GetComponent<SpriteRenderer>().sortingOrder = y - 1;
+                        GridList[x, y]                                               = child.gameObject;
+                        var objectOnHex = child.GetChild(0);
+                        if (objectOnHex != null)
+                        {
+                            objectOnHex.gameObject.GetComponent<SpriteRenderer>().sortingOrder = y;
+                        }
+
+                        if (x % 2 == 1)
+                        {
+                            if ((x + i) % 2 == 0)
+                            {
+                                positionToSkip.Add(new Vector2(x + i, y + j-1));
+                            }
+                            else
+                            {
+                                positionToSkip.Add(new Vector2(x + i, y + j));
+                            }
+                        }
+                        else
+                        {
+                            positionToSkip.Add(new Vector2(x + i, y + j ));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private void SpawnFromDiversity(Texture2D texture, List<GenerateLevelDiversity> diversities, int x, int y, GameObject parent)
     {
         if (GridFillList[x, y] == false)
@@ -305,14 +359,7 @@ public class MapManager : MonoBehaviour
     private Vector2 positionFromCoords(int x, int y)
     {
         var vec =new Vector2();
-        if (x % 2 == 0)
-        {
-            vec.x = x *_hexWidth;
-        }
-        else
-        {
-            vec.x = x *_hexWidth;
-        }
+        vec.x = x *_hexWidth;
         if (x % 2 == 0)
         {
             vec.y = -y*_hexHeight;

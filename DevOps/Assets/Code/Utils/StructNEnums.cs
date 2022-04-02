@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+
 [Serializable]
 public struct CatchEnum
 {
@@ -60,4 +62,20 @@ public struct GenerateLevelDiversity
     public float            MaxValue;
     public float            ChanceOfObject;
     public List<GameObject> FloraList;
+}
+
+[Serializable]
+public struct Weather
+{
+    public WeatherType Type;
+    [Range(0,1)]
+    public float         MaxOccurenceChance;
+    [Range(0, 1)]
+    public float         MinOccurenceChance;
+    public             int MinimalDuration;
+}
+
+public enum WeatherType
+{
+    SUN,RAIN
 }

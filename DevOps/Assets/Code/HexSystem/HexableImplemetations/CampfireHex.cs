@@ -131,6 +131,7 @@ public class CampfireHex : MonoBehaviour, IHexable
         {
             Output = recipe.FailureOutput;
         }
+        Debug.Log("Cooking");
 
         FuelBurningTime -= time;
         if (FuelPrefab != null && FuelBurningTime <= 0)

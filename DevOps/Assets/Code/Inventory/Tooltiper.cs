@@ -11,8 +11,15 @@ public class Tooltiper : MonoBehaviour
     [SerializeField] private TMP_Text _title;
     [SerializeField] private TMP_Text _description;
     
-    private                  Color _colorBase;
-    private                  Image _renderer;
+    private        Color     _colorBase;
+    private        Image     _renderer;
+    private static Tooltiper _instance;
+
+    public static Tooltiper GetInstane()
+    {
+        if (_instance == null) _instance = FindObjectOfType<Tooltiper>();
+        return _instance;
+    }
     public void ShowTooltip(Item item)
     {
         gameObject.SetActive(true);
