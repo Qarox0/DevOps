@@ -17,7 +17,6 @@ public class MatchHolder : MonoBehaviour, IPointerClickHandler
     private void OnEnable()
     {
         QuickFlip();
-
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -42,6 +41,7 @@ public class MatchHolder : MonoBehaviour, IPointerClickHandler
                 {
                     _actualImage.sprite = null;
                     _transform.DOScale(1, 0.25f);
+                    _isShown = false;
                 }));
 
             });

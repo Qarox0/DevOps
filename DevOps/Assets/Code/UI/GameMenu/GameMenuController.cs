@@ -74,7 +74,7 @@ public class GameMenuController : MonoBehaviour
         _saveGameButton.onClick.AddListener(SaveGame);
         //debug
         _startAdventureButton.onClick.AddListener(StartAdventure);
-        _toggleAlchemyButton.onClick.AddListener(() => _alchemyPanel.SetActive(!_alchemyPanel.activeSelf));
+        _toggleAlchemyButton.onClick.AddListener(() => _alchemyPanel.SetActive(true));
         _returnAdventureButton.onClick.AddListener(ReturnAdventure);
         _toggleBackpackButton.onClick.AddListener(()=> _backpackPanel.SetActive(!_backpackPanel.activeSelf));
         _toggleCraftingButton.onClick.AddListener(()=> _craftingPanel.SetActive(!_craftingPanel.activeSelf));

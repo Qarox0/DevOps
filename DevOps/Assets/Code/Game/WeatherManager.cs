@@ -12,7 +12,9 @@ public class WeatherManager : MonoBehaviour
     [SerializeField] private Animator      _weatherAnimator;
     private                  Weather       _actualWeather;
     private                  int           _duration;
+#pragma warning disable CS0414
     private                  bool          _locked = false;
+#pragma warning restore CS0414
     // Start is called before the first frame update
     void Start()
     {
