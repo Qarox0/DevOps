@@ -101,6 +101,8 @@ MonoBehaviour:
   _radiusOfNearHexCheck: 0.82
   MovementMultiplier: 1
   _isDrawingGizmos: 0
+  _haveEvent: 0
+  _eventToLaunchOnStep: 
 --- !u!58 &3269597256137085944
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -212,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2c8c3d5bb14d044a096752ec10d40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _berriesPrefab: {fileID: 8384901244394430122, guid: f44e8e757066ec3488ac731fc1792eea, type: 3}
+  _berriesPrefab: {fileID: 6233522735675911012, guid: 500541d60c666c34586a1a5198988b5a, type: 3}
   _emptyBushPrefab: {fileID: 6415593782313744766, guid: 35315a6658909e445bd52e5607d71283, type: 3}
   _maxUseCount: 10
   _timeTaken: 3

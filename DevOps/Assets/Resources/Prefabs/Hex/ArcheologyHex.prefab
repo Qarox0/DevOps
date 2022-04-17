@@ -101,6 +101,8 @@ MonoBehaviour:
   _radiusOfNearHexCheck: 0.82
   MovementMultiplier: 1
   _isDrawingGizmos: 0
+  _haveEvent: 0
+  _eventToLaunchOnStep: 
 --- !u!58 &7815385572639360975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -209,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9174760154077987190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cd42ee1d09a84ca6546af97da5363, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f0c68928fe242238904f8cefda78e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: cddb450be9b0b014bb8cac09f52a11c0, type: 2}

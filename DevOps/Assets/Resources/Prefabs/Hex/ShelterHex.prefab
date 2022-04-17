@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814149495391447303}
   - component: {fileID: 5837643637104463199}
+  - component: {fileID: 327487755576553984}
   m_Layer: 0
   m_Name: szaas
   m_TagString: Untagged
@@ -82,6 +83,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &327487755576553984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323689452671152362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1db443b6f72440a8df03e2029d09e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabName: Shelter
+  _minimalTimeToSleep: 4
+  _sleepTime: 2
 --- !u!1 &6711567904713183190
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,10 +195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988084104cbb67744a1f4608d4092a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectOnField: {fileID: 0}
+  _objectOnField: {fileID: 327487755576553984}
   _radiusOfNearHexCheck: 0.82
   MovementMultiplier: 1
   _isDrawingGizmos: 0
+  _haveEvent: 0
+  _eventToLaunchOnStep: 
 --- !u!58 &9183856847624511233
 CircleCollider2D:
   m_ObjectHideFlags: 0
