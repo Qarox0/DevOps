@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +37,7 @@ public class ArcheologyHex : MonoBehaviour, IHexable
     public RequiredItem Output             { get; set; }
     public bool         IsCooking          { get; set; }
     public int          FuelAmount         { get; set; }
-    public void         Interaction(Player player)
+    public void Interaction(Player player)
     {
         ArcheologyManager.GetInstance().OpenArcheology(_data);
         UseCount++;
@@ -47,7 +47,7 @@ public class ArcheologyHex : MonoBehaviour, IHexable
         }
     }
 
-    public void         Depleted()
+    public void Depleted()
     {
         Destroy(gameObject);
     }

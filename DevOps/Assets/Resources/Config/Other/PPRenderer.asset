@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
   m_Name: PPRenderer
   m_EditorClassIdentifier: 
-  m_RendererFeatures:
-  - {fileID: 4593333102998807619}
-  m_RendererFeatureMap: 436449e31eccbe3f
+  m_RendererFeatures: []
+  m_RendererFeatureMap: 
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
@@ -43,21 +42,3 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
---- !u!114 &4593333102998807619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc97d77f7ea18444b47ae4d26afd7b0, type: 3}
-  m_Name: NewPostProcessingFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  settings:
-    material:
-    - {fileID: 2100000, guid: 594dc6e7caa4074498f7ed5fd34b117c, type: 2}
-    - {fileID: 2100000, guid: 30c4d1b7815a68449b2a7364049aad18, type: 2}
-    - {fileID: 2100000, guid: 6d10e1734d4011c4fbd32594840694e2, type: 2}
