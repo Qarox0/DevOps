@@ -32,7 +32,7 @@ public class NeedsHandler : MonoBehaviour
     public void RestoreNeeds(float hunger, float thirst)
     {
         _player.stats.Hunger  += hunger;
-        _player.stats.Thirsty += thirst;
+        _player.stats.Thirst += thirst;
         UpdateVisualStatus();
     }
 
@@ -49,24 +49,24 @@ public class NeedsHandler : MonoBehaviour
         {
             _player.stats.Hunger -= amountOfTimePassed * _defaultHungerDrop;
         }
-        if (_player.stats.Thirsty < amountOfTimePassed * _defaultThirstDrop)
+        if (_player.stats.Thirst < amountOfTimePassed * _defaultThirstDrop)
         {
-            healthDamage         =  amountOfTimePassed * _defaultThirstDrop - _player.stats.Thirsty;
-            _player.stats.Thirsty =  0;
+            healthDamage         =  amountOfTimePassed * _defaultThirstDrop - _player.stats.Thirst;
+            _player.stats.Thirst =  0;
             _player.stats.Health -= healthDamage;
         }
         else
         {
-            _player.stats.Thirsty -= amountOfTimePassed * _defaultThirstDrop;
+            _player.stats.Thirst -= amountOfTimePassed * _defaultThirstDrop;
         }
         UpdateVisualStatus();
     }
 
     private void UpdateVisualStatus()
     {
-        _thirstImage.color = new Color(1 , 0 +_player.stats.Thirsty / 100, 0 +_player.stats.Thirsty / 100, 1);
-        _hungerImage.color = new Color(1, 0 +_player.stats.Thirsty / 100, 0 +_player.stats.Thirsty / 100, 1);
-        _healthImage.color = new Color(1 , 1, 1, _player.stats.Health / 100);
+        _thirstImage.color = new Color(1 , 0 +_player.stats.Thirst / _player.stats.MaxThirst.Value, 0 +_player.stats.Thirst / _player.stats.MaxThirst.Value, 1);
+        _hungerImage.color = new Color(1, 0 +_player.stats.Hunger / _player.stats.MaxHunger.Value, 0 +_player.stats.Thirst / _player.stats.MaxHunger.Value, 1);
+        _healthImage.color = new Color(1 , 1, 1, _player.stats.Health / _player.stats.MaxHealth.Value);
     }
     
 

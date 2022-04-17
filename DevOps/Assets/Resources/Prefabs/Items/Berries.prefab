@@ -173,7 +173,7 @@ MonoBehaviour:
   _maxStackQuantity: 64
   _name: Berries_Item_Name
   _decription: Berries_Item_Description
-  _type: 0
+  _type: 3
   _fuelValue: 0
   _durability: 1
   _text: {fileID: 8035128431471631887}
@@ -185,6 +185,7 @@ MonoBehaviour:
     EventChance: 100
   _catchMultiplier: 0
   PrefabName: Berries
+  _canvas: {fileID: 0}
 --- !u!225 &7429918876697717210
 CanvasGroup:
   m_ObjectHideFlags: 0

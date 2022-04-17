@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6274f0d22a8d22a448d36bd3f6ece9e1, type: 3}
   m_Name: EndAnswer
   m_EditorClassIdentifier: 
-  ResultName: EmptyResult
+  ResultNames: EmptyResult
   AnswerDescription: Yes_Empty_Result
   Params: 

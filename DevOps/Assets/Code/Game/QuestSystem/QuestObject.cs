@@ -1,18 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class QuestObject : MonoBehaviour
+[CreateAssetMenu(fileName = "New Quest Object", menuName = "Scriptable/Quest/New Quest Object")]
+public class QuestObject : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeReference] public List<Goal> Goals;
 }

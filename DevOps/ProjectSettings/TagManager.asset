@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hex
   - Garbage
+  - DragCanvas
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - PostProcess
   - Water
   - UI
-  - 
+  - Drag
   - 
   - 
   - 
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: New Layer
     uniqueID: 2675606175
+    locked: 0
+  - name: UI
+    uniqueID: 909658949
     locked: 0

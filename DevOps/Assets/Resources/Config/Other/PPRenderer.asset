@@ -12,20 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
   m_Name: PPRenderer
   m_EditorClassIdentifier: 
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
-  postProcessData: {fileID: 0}
-  xrSystemData: {fileID: 0}
+  m_RendererFeatures:
+  - {fileID: 4593333102998807619}
+  m_RendererFeatureMap: 436449e31eccbe3f
+  postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
-    blitPS: {fileID: 0}
-    copyDepthPS: {fileID: 0}
-    screenSpaceShadowPS: {fileID: 0}
-    samplingPS: {fileID: 0}
+    blitPS: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
+    copyDepthPS: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+    screenSpaceShadowPS: {fileID: 4800000, guid: 0f854b35a0cf61a429bd5dcfea30eddd, type: 3}
+    samplingPS: {fileID: 4800000, guid: 04c410c9937594faa893a11dceb85f7e, type: 3}
     tileDepthInfoPS: {fileID: 0}
     tileDeferredPS: {fileID: 0}
-    stencilDeferredPS: {fileID: 0}
-    fallbackErrorPS: {fileID: 0}
-    materialErrorPS: {fileID: 0}
+    stencilDeferredPS: {fileID: 4800000, guid: e9155b26e1bc55942a41e518703fe304, type: 3}
+    fallbackErrorPS: {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
+    materialErrorPS: {fileID: 4800000, guid: 5fd9a8feb75a4b5894c241777f519d4e, type: 3}
   m_OpaqueLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -42,3 +43,21 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
+--- !u!114 &4593333102998807619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bc97d77f7ea18444b47ae4d26afd7b0, type: 3}
+  m_Name: NewPostProcessingFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    material:
+    - {fileID: 2100000, guid: 594dc6e7caa4074498f7ed5fd34b117c, type: 2}
+    - {fileID: 2100000, guid: 30c4d1b7815a68449b2a7364049aad18, type: 2}
+    - {fileID: 2100000, guid: 6d10e1734d4011c4fbd32594840694e2, type: 2}
