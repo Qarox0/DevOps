@@ -1,5 +1,8 @@
 using System;
+using Code.Utils;
 using UnityEngine;
-public interface Goal
+[Serializable]
+public class Goal
 {
 }
+

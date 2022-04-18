@@ -43,6 +43,7 @@
   <ItemGroup>
      <Compile Include="Assets\Code\Editor\RenameGridScript.cs" />
      <Compile Include="Assets\Code\Editor\TranslationUtils.cs" />
+     <Compile Include="Assets\Code\Editor\GoalInspector.cs" />
      <Reference Include="UnityEngine">
      <HintPath>A:\Unity\2022.1.0b16\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
