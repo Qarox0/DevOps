@@ -7,15 +7,15 @@ public class PostProcessingFeature : ScriptableRendererFeature
 {
     class CustomRenderPass : ScriptableRenderPass
     {
-        public RenderTargetIdentifier source;
+        public RenderTargetIdentifier Source;
 
-        private List<Material> _materials;
-        private RenderTargetHandle temporaryRenderTarget;
+        private readonly List<Material> _materials;
+        private readonly RTHandle _temporaryRenderTarget;
 
         public CustomRenderPass(List<Material> material)
         {
             _materials = material;
-            temporaryRenderTarget.Init("_TemporaryColorTexture");
+            _temporaryRenderTarget = RTHandles.Alloc("_TemporaryColorTexture");
         }
         // This method is called before executing the render pass.
         // It can be used to configure render targets and their clear state. Also to create temporary render target textures.
@@ -35,9 +35,10 @@ public class PostProcessingFeature : ScriptableRendererFeature
             CommandBuffer commandBuffer = CommandBufferPool.Get("PostProcessFeature");
             foreach (var material in _materials)
             {
-                commandBuffer.GetTemporaryRT(temporaryRenderTarget.id, renderingData.cameraData.cameraTargetDescriptor);
-                Blit(commandBuffer, source,temporaryRenderTarget.Identifier(), material);
-                Blit(commandBuffer, temporaryRenderTarget.Identifier(), source);
+                commandBuffer.GetTemporaryRT(Shader.PropertyToID(_temporaryRenderTarget.name), renderingData.cameraData.cameraTargetDescriptor);
+                commandBuffer.Blit( Source,_temporaryRenderTarget.nameID, material);
+                commandBuffer.Blit( _temporaryRenderTarget.nameID, Source);
+                
 
             }
             
@@ -53,28 +54,29 @@ public class PostProcessingFeature : ScriptableRendererFeature
     [System.Serializable]
     public class Settings
     {
-        public List<Material> material = null;
+        public List<Material> material;
     }
 
     public Settings settings = new Settings();
     
-    CustomRenderPass m_ScriptablePass;
+    CustomRenderPass _mScriptablePass;
     
     /// <inheritdoc/>
     public override void Create()
     {
-        m_ScriptablePass = new CustomRenderPass(settings.material);
-
-        // Configures where the render pass should be injected.
-        m_ScriptablePass.renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+        _mScriptablePass = new CustomRenderPass(settings.material)
+        {
+            // Configures where the render pass should be injected.
+            renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing
+        };
     }
 
     // Here you can inject one or multiple render passes in the renderer.
     // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        m_ScriptablePass.source = renderer.cameraColorTarget;
-        renderer.EnqueuePass(m_ScriptablePass);
+        _mScriptablePass.Source = renderer.cameraColorTargetHandle.nameID;
+        renderer.EnqueuePass(_mScriptablePass);
     }
 }
 
